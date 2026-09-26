@@ -1,26 +1,33 @@
-import { useEffect, useRef, useState } from 'react'
-import QRCode from 'qrcode'
+import { useEffect, useRef } from 'react'
 import type { Person } from '../types'
-import { BudgetField, PlacesField, PrioritiesField } from '../fields/Fields'
-import { JOIN, STEPS } from './constants'
+import { BudgetField, PlacesField, PrioritiesField, type SetPerson } from '../fields/Fields'
+import { InviteCard } from '../components/InviteCard'
+import { roomsEnabled } from '../room'
+import { STEPS, type StepId } from './constants'
 import { summary } from './summary'
-import { Arrow, BackArrow, Logo, Mark, StepIcon } from './icons'
+import { Arrow, BackArrow, Mark, StepIcon } from './icons'
 
 type Props = {
-  person: Person
-  setPerson: (f: (p: Person) => Person) => void
+  me: Person
+  setMe: SetPerson
+  steps: StepId[] // joiners skip the invite step
   step: number
   setStep: (i: number) => void
   onBackToLanding: () => void
   onFinish: () => void
-  invite: (name: string) => void
+  together: boolean | null
+  setTogether: (t: boolean) => void
+  roomCode: string | null
+  roomPeople: Person[]
+  startRoom: () => void
   toast: (msg: string) => void
 }
 
-export function Wizard({ person, setPerson, step, setStep, onBackToLanding, onFinish, invite, toast }: Props) {
-  const s = STEPS[step]
-  const last = step === STEPS.length - 1
-  const nextDisabled = last && person.together === null
+export function Wizard(props: Props) {
+  const { me, setMe, steps, step, setStep, onBackToLanding, onFinish, together, roomCode } = props
+  const s = STEPS.find((x) => x.id === steps[step])!
+  const last = step === steps.length - 1
+  const nextDisabled = s.id === 'invite' && (together === null || (together && !roomCode))
   const seen = useRef(-1)
 
   const next = () => {
@@ -51,6 +58,10 @@ export function Wizard({ person, setPerson, step, setStep, onBackToLanding, onFi
     seen.current = Math.max(seen.current, step - 1)
   }, [step])
 
+  const others = props.roomPeople.filter((p) => p.id !== me.id)
+  const inviteSummary =
+    together === null ? <span className="xx">Not answered</span> : together ? `Together${others.length ? ' with ' + others.map((p) => p.name || 'someone').join(', ') : ''}` : 'On my own'
+
   return (
     <div className="shell">
       <main className="main">
@@ -58,10 +69,10 @@ export function Wizard({ person, setPerson, step, setStep, onBackToLanding, onFi
         <section className="q" aria-live="polite">
           <div className="prog">
             <span className="n">
-              {step + 1}/{STEPS.length}
+              {step + 1}/{steps.length}
             </span>
             <div className="bars">
-              {STEPS.map((_, k) => (
+              {steps.map((_, k) => (
                 <i key={k} className={k <= step ? 'on' : ''} />
               ))}
             </div>
@@ -71,13 +82,13 @@ export function Wizard({ person, setPerson, step, setStep, onBackToLanding, onFi
           <div className="stage">
             {s.id === 'budget' && (
               <>
-                <BudgetField person={person} setPerson={setPerson} />
+                <BudgetField person={me} setPerson={setMe} />
                 <p className="note">Drag to get close, then use − and + to set the exact amount.</p>
               </>
             )}
-            {s.id === 'places' && <PlacesField person={person} setPerson={setPerson} />}
-            {s.id === 'rank' && <PrioritiesField person={person} setPerson={setPerson} />}
-            {s.id === 'invite' && <InviteStep person={person} setPerson={setPerson} invite={invite} toast={toast} />}
+            {s.id === 'places' && <PlacesField person={me} setPerson={setMe} />}
+            {s.id === 'rank' && <PrioritiesField person={me} setPerson={setMe} />}
+            {s.id === 'invite' && <InviteStep {...props} />}
           </div>
           <div className="nav">
             <button className="back" onClick={back}>
@@ -93,18 +104,20 @@ export function Wizard({ person, setPerson, step, setStep, onBackToLanding, onFi
       <aside className="side" aria-label="Your plan so far">
         <h3>Your plan so far</h3>
         <ol className="tl">
-          {STEPS.map((st, k) => {
+          {steps.map((id, k) => {
+            const st = STEPS.find((x) => x.id === id)!
             const cls = k < step ? 'set' : k === step ? 'now' : ''
+            const value = id === 'invite' ? inviteSummary : summary(id, me)
             const inner = (
               <>
                 <div className="k">{st.k}</div>
-                {k <= step ? <div className="v">{summary(st.id, person)}</div> : <span className="sk" style={{ width: `${[48, 70, 56, 44][k]}%` }} />}
+                {k <= step ? <div className="v">{value}</div> : <span className="sk" style={{ width: `${[48, 70, 56, 44][k]}%` }} />}
               </>
             )
             return (
-              <li key={st.id} className={`ent ${cls}${k === fresh ? ' fresh' : ''}`}>
+              <li key={id} className={`ent ${cls}${k === fresh ? ' fresh' : ''}`}>
                 <span className="ic">
-                  <StepIcon id={st.id} />
+                  <StepIcon id={id} />
                 </span>
                 {k < step ? (
                   <button className="edit" onClick={() => setStep(k)} aria-label={`Edit ${st.k}`}>
@@ -123,41 +136,18 @@ export function Wizard({ person, setPerson, step, setStep, onBackToLanding, onFi
   )
 }
 
-type StepProps = { person: Person; setPerson: Props['setPerson'] }
-
-function InviteStep({ person, setPerson, invite, toast }: StepProps & { invite: Props['invite']; toast: Props['toast'] }) {
-  const [tab, setTab] = useState<'email' | 'qr'>('email')
-  const [email, setEmail] = useState('')
-  const [qr, setQr] = useState<string | null>(null)
-  const t = person.together
-
-  useEffect(() => {
-    if (tab === 'qr' && !qr) QRCode.toDataURL('https://' + JOIN, { width: 352, margin: 0, color: { dark: '#171C24', light: '#FFFFFF' } }).then(setQr, () => setQr(''))
-  }, [tab, qr])
-
-  const send = () => {
-    const v = email.trim()
-    if (!/^\S+@\S+\.\S+$/.test(v)) {
-      toast('Enter a full email address')
-      return
-    }
-    const name = v.split('@')[0].replace(/[._\d]+/g, ' ').trim().replace(/^\w/, (c) => c.toUpperCase()) || 'Friend'
-    invite(name)
-    setEmail('')
-    toast('Invite sent to ' + v)
-  }
-
+function InviteStep({ me, setMe, together, setTogether, roomCode, roomPeople, startRoom, toast }: Props) {
   return (
     <>
       <div className="rows">
-        <button className="rowopt" aria-pressed={t === false} onClick={() => setPerson((p) => ({ ...p, together: false }))}>
+        <button className="rowopt" aria-pressed={together === false} onClick={() => setTogether(false)} disabled={!!roomCode}>
           <span className="ind" />
           <span className="t">
             <b>On my own</b>
-            <small>Just me for now. I can invite people later.</small>
+            <small>Just me for now. I can invite people later from the map.</small>
           </span>
         </button>
-        <button className="rowopt" aria-pressed={t === true} onClick={() => setPerson((p) => ({ ...p, together: true }))}>
+        <button className="rowopt" aria-pressed={together === true} onClick={() => setTogether(true)}>
           <span className="ind" />
           <span className="t">
             <b>Together</b>
@@ -165,90 +155,44 @@ function InviteStep({ person, setPerson, invite, toast }: StepProps & { invite: 
           </span>
         </button>
       </div>
-      {t && (
-        <div className="board">
-          <div className="seats">
-            <div className="seat">
-              <div className="av" style={{ background: 'var(--accent)' }}>
-                Y
-              </div>
-              <b>You</b>
-              <small>answering</small>
-            </div>
-            {person.mates.map((m) => (
-              <div className="seat" key={m.name}>
-                <div className="av" style={{ background: m.color }}>
-                  {m.name[0].toUpperCase()}
-                </div>
-                <b>{m.name}</b>
-                <small className={m.status === 'Done' ? 'ok' : ''}>{m.status.toLowerCase()}</small>
-              </div>
-            ))}
-            {person.mates.length < 3 && (
-              <div className="seat">
-                <div className="empty">+</div>
-                <b style={{ color: 'var(--faint)' }}>Invite</b>
-                <small>&nbsp;</small>
-              </div>
-            )}
-          </div>
-          <div className="tabs" role="tablist">
-            <button role="tab" aria-selected={tab === 'email'} onClick={() => setTab('email')}>
-              Email
-            </button>
-            <button role="tab" aria-selected={tab === 'qr'} onClick={() => setTab('qr')}>
-              QR code
-            </button>
-          </div>
-          {tab === 'email' ? (
-            <div className="inl">
-              <input
-                className="input"
-                type="email"
-                placeholder="name@email.com"
-                aria-label="Email to invite"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter') {
-                    e.preventDefault()
-                    send()
-                  }
-                }}
-              />
-              <button className="btn pri sm" onClick={send}>
-                Send invite
-              </button>
-            </div>
-          ) : (
-            <>
-              <div className="qrcard">
-                <div className="qm">
-                  <Logo />
-                  Reach NYC
-                </div>
-                <div id="qr" role="img" aria-label="QR code to join your search">
-                  {qr ? <img src={qr} alt="" /> : qr === '' ? <small>QR code unavailable</small> : null}
-                </div>
-                <b>Join my search</b>
-                <small>{JOIN}</small>
-              </div>
-              <p className="note" style={{ marginTop: -8 }}>
-                Have them scan it, or screenshot the card and text it.
-              </p>
-              <button
-                className="demo"
-                onClick={() => {
-                  invite(['Sam', 'Jordan', 'Priya'][person.mates.length % 3])
-                  toast('Someone scanned your code')
-                }}
-              >
-                Prototype: simulate a friend scanning
-              </button>
-            </>
-          )}
-        </div>
-      )}
+      {together && <StartGroup me={me} setMe={setMe} roomCode={roomCode} roomPeople={roomPeople} startRoom={startRoom} toast={toast} />}
     </>
+  )
+}
+
+// Name + "Start a group", then the live invite card. Also used from the map panel.
+export function StartGroup({ me, setMe, roomCode, roomPeople, startRoom, toast }: Pick<Props, 'me' | 'setMe' | 'roomCode' | 'roomPeople' | 'startRoom' | 'toast'>) {
+  if (!roomsEnabled)
+    return (
+      <div className="warn">
+        <b>Group search isn't set up yet</b>
+        <p>Add the Supabase URL and anon key to app/.env.local (see .env.example), run app/supabase.sql once, and restart the dev server.</p>
+      </div>
+    )
+  if (roomCode) return <InviteCard code={roomCode} people={roomPeople} meId={me.id} hostName={roomPeople[0]?.name ?? me.name} toast={toast} />
+  return (
+    <div className="board">
+      <div>
+        <span className="lbl">Your name, so your group knows who's who</span>
+        <div className="inl">
+          <input
+            className="input"
+            value={me.name}
+            placeholder="First name"
+            aria-label="Your name"
+            onChange={(e) => setMe((p) => ({ ...p, name: e.target.value }))}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && me.name.trim()) {
+                e.preventDefault()
+                startRoom()
+              }
+            }}
+          />
+          <button className="btn pri sm" disabled={!me.name.trim()} onClick={startRoom}>
+            Start a group
+          </button>
+        </div>
+      </div>
+    </div>
   )
 }

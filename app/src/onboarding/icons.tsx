@@ -36,7 +36,7 @@ export const Logo = () => (
 export const Mark = () => (
   <div className="mark">
     <Logo />
-    Reach NYC
+    Rentdezvous
   </div>
 )
 

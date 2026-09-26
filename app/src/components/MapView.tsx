@@ -4,8 +4,7 @@ import 'maplibre-gl/dist/maplibre-gl.css'
 import maplibreWorkerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url'
 import { cellToBoundary } from 'h3-js'
 import type { FeatureCollection } from 'geojson'
-import type { Cell, LocatedPlace } from '../types'
-import { hue } from '../onboarding/constants'
+import type { Cell } from '../types'
 import type { CellResult } from '../score'
 
 // MapLibre 6 loads its worker from a URL; let Vite bundle it and hand us that URL
@@ -16,10 +15,12 @@ const STYLE = `https://basemaps.cartocdn.com/gl/${DARK ? 'dark-matter' : 'positr
 const INK = DARK ? '#ECEEF1' : '#171C24'
 const HALO = DARK ? '#111316' : '#FFFFFF'
 
+export type Pin = { label: string; lat: number; lng: number; color: string }
+
 type Props = {
   cells: Cell[]
   results: CellResult[]
-  places: LocatedPlace[]
+  pins: Pin[]
   selected: number | null
   loading: boolean
   onSelect: (i: number | null) => void
@@ -40,18 +41,18 @@ function cellsGeoJSON(cells: Cell[]): FeatureCollection {
   }
 }
 
-function placesGeoJSON(places: LocatedPlace[]): FeatureCollection {
+function pinsGeoJSON(pins: Pin[]): FeatureCollection {
   return {
     type: 'FeatureCollection',
-    features: places.map((p) => ({
+    features: pins.map((p) => ({
       type: 'Feature',
-      properties: { name: p.name, color: hue(p.name) },
+      properties: { name: p.label, color: p.color },
       geometry: { type: 'Point', coordinates: [p.lng, p.lat] },
     })),
   }
 }
 
-export function MapView({ cells, results, places, selected, loading, onSelect }: Props) {
+export function MapView({ cells, results, pins, selected, loading, onSelect }: Props) {
   const container = useRef<HTMLDivElement>(null)
   const mapRef = useRef<MapLibreMap | null>(null)
   const onSelectRef = useRef(onSelect)
@@ -113,7 +114,7 @@ export function MapView({ cells, results, places, selected, loading, onSelect }:
         paint: { 'line-color': INK, 'line-width': 3 },
       })
 
-      map.addSource('places', { type: 'geojson', data: placesGeoJSON([]) })
+      map.addSource('places', { type: 'geojson', data: pinsGeoJSON([]) })
       map.addLayer({
         id: 'places-dot',
         type: 'circle',
@@ -148,8 +149,8 @@ export function MapView({ cells, results, places, selected, loading, onSelect }:
   useEffect(() => {
     const map = mapRef.current
     if (!ready || !map) return
-    ;(map.getSource('places') as GeoJSONSource).setData(placesGeoJSON(places))
-  }, [ready, places])
+    ;(map.getSource('places') as GeoJSONSource).setData(pinsGeoJSON(pins))
+  }, [ready, pins])
 
   useEffect(() => {
     const map = mapRef.current

@@ -1,10 +1,10 @@
-// The inputs Reach collects. The onboarding wizard and the map's side panel both render these,
+// The inputs Rentdezvous collects. The onboarding wizard and the map's side panel both render these,
 // so the two stay in sync: add or change a field here and it shows up in both.
 import { useState } from 'react'
 import { AddressSearch } from '../components/AddressSearch'
 import { FACTOR_LABEL, FACTOR_NOTE, LABELS, MAX_PLACES, MINS, SAFETY_RANK_NOTE, hue, money } from '../onboarding/constants'
 import { PlaceIcon } from '../onboarding/icons'
-import type { Person, Place, TimesState } from '../types'
+import { coordKey, type Person, type Place, type TimesState } from '../types'
 
 export type SetPerson = (f: (p: Person) => Person) => void
 type FieldProps = { person: Person; setPerson: SetPerson; compact?: boolean }
@@ -71,7 +71,7 @@ export function PlacesField({ person, setPerson, compact, times }: FieldProps & 
     <div className={compact ? 'f-places compact' : 'f-places'}>
       <div className="bubs">
         {person.places.map((p, k) => {
-          const t = times?.[p.id]
+          const t = p.lat != null && p.lng != null ? times?.[coordKey({ lat: p.lat, lng: p.lng })] : undefined
           return (
             <div className="bub" key={p.id} style={{ ['--h' as string]: hue(p.name) }}>
               <div className="top">

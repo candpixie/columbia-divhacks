@@ -25,26 +25,25 @@ export type Place = {
 
 export type LocatedPlace = Place & { lat: number; lng: number }
 
-export type Mate = { name: string; color: string; status: 'Invited' | 'Answering' | 'Done'; data: MateAnswers | null }
-
-export type MateAnswers = {
-  budget: number
-  places: { name: string; address: string; maxMin: number }[]
-  ranking: Factor[]
-}
-
+// One person's answers. In a group room, each person's copy is synced to everyone.
 export type Person = {
+  id: string
+  name: string
+  color: string
   budget: number | null
   places: Place[]
-  together: boolean | null
-  mates: Mate[] // prototype placeholder for the invite step
   ranking: Factor[] // most important first; drives stretch-cost weights and the safety limit
+  done: boolean // finished onboarding; only finished people count on the group map
 }
 
 // minutes per cell index; Infinity = not reachable within the search limit
 export type TravelTimes = Float32Array
 
+// by coordKey
 export type TimesState = Record<string, TravelTimes | 'loading' | { error: string }>
 
 export const located = (places: Place[]): LocatedPlace[] =>
   places.filter((p): p is LocatedPlace => p.lat != null && p.lng != null)
+
+// travel times are shared by location, so two people with the same office reuse one lookup
+export const coordKey = (p: { lat: number; lng: number }) => `${p.lat.toFixed(5)},${p.lng.toFixed(5)}`

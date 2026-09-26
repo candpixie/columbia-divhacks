@@ -90,3 +90,25 @@ body { margin: 0; }
 @media (max-width: 900px) {
   .lineup.two { grid-template-columns: minmax(0, 1fr); }
 }
+
+/* ---------- Groups ---------- */
+.join-name { max-width: 360px; margin: -20px 0 28px; }
+.join-name .input { font-size: 17px; padding: 14px 18px; border-radius: 14px; }
+.go:disabled { opacity: .35; cursor: not-allowed; transform: none; box-shadow: none; }
+.rowopt:disabled { opacity: .45; cursor: not-allowed; }
+.board .note { margin: 0; }
+
+.ms-invite { margin: 0; font-size: 13.5px; }
+.ms-people { display: flex; flex-wrap: wrap; gap: 6px; }
+.ms-chip {
+  display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--rule); background: var(--field);
+  border-radius: 999px; padding: 6px 12px; font-size: 13.5px; cursor: pointer;
+}
+.ms-chip:hover { border-color: var(--faint); }
+.ms-chip[aria-checked="true"] { border-color: var(--ink); background: var(--sunk); font-weight: 500; }
+.ms-chip small { color: var(--muted); font-size: 12px; font-weight: 400; }
+.ms-dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; flex: none; margin-right: 6px; vertical-align: 1px; }
+.ms-chip .ms-dot { margin-right: 0; }
+.ms-name { display: flex; flex-direction: column; gap: 4px; }
+.ms-name .input { padding: 9px 12px; }
+.ms-dl dd.ms-over { color: var(--err); }

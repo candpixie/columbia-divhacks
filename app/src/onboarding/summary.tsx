@@ -1,15 +1,9 @@
 // One-line summaries of each answer, used by the wizard sidebar and the plan cards
 import type { ReactNode } from 'react'
 import { FACTOR_LABEL, SAFETY_RANK_NOTE, money, type StepId } from './constants'
-import type { Factor, Person } from '../types'
+import type { Person } from '../types'
 
-export type Answers = {
-  budget: number | null
-  places: { name: string; address: string; maxMin: number }[]
-  ranking: Factor[]
-}
-
-export function summary(id: StepId, d: Answers | Person): ReactNode {
+export function summary(id: Exclude<StepId, 'invite'>, d: Person): ReactNode {
   switch (id) {
     case 'budget':
       return d.budget == null ? 'Not set' : `Up to ${money(d.budget)}${d.budget >= 10000 ? '+' : ''} /mo`
@@ -36,10 +30,5 @@ export function summary(id: StepId, d: Answers | Person): ReactNode {
           <span className="xx">Safety: {SAFETY_RANK_NOTE[d.ranking.indexOf('safety')].toLowerCase()}</span>
         </>
       )
-    case 'invite': {
-      if (!('together' in d) || d.together === null) return <span className="xx">Not answered</span>
-      if (!d.together) return 'On my own'
-      return `Together${d.mates.length ? ' with ' + d.mates.map((m) => m.name).join(', ') : ''}`
-    }
   }
 }

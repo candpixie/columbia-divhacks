@@ -1,26 +1,26 @@
 import { useEffect, useRef } from 'react'
 import type { Person } from '../types'
 import { FACTOR_LABEL, money, type StepId } from './constants'
-import { summary, type Answers } from './summary'
+import { summary } from './summary'
 import { Mark, StepIcon } from './icons'
 
-type Props = { person: Person; celebrate: boolean; onOpenMap: () => void; onEdit: (step: number) => void }
+type Props = { me: Person; people: Person[]; together: boolean; celebrate: boolean; onOpenMap: () => void; onEdit: (step: number) => void }
 
-const CARD_ROWS: [StepId, string][] = [
+const CARD_ROWS: [Exclude<StepId, 'invite'>, string][] = [
   ['budget', 'Budget'],
   ['places', 'Your places'],
   ['rank', 'Priorities'],
 ]
 
-function Card({ name, color, d, you }: { name: string; color: string; d: Answers; you?: boolean }) {
+function Card({ person, you }: { person: Person; you?: boolean }) {
   return (
     <article className="pc">
       <div className="hd">
-        <div className="av" style={{ background: color }}>
-          {name[0]}
+        <div className="av" style={{ background: person.color }}>
+          {(person.name || 'Y')[0].toUpperCase()}
         </div>
         <div>
-          <b>{you ? 'You' : name}</b>
+          <b>{you ? (person.name ? `${person.name} (you)` : 'You') : person.name || 'Someone'}</b>
           <span>{you ? 'Finished just now' : 'Finished their answers'}</span>
         </div>
         <span className="badge">✓ done</span>
@@ -33,7 +33,7 @@ function Card({ name, color, d, you }: { name: string; color: string; d: Answers
             </span>
             <div>
               <div className="k">{k}</div>
-              <div className="v">{summary(id, d)}</div>
+              <div className="v">{summary(id, person)}</div>
             </div>
           </li>
         ))}
@@ -42,19 +42,20 @@ function Card({ name, color, d, you }: { name: string; color: string; d: Answers
   )
 }
 
-export function PlanReady({ person, celebrate, onOpenMap, onEdit }: Props) {
-  const mates = person.mates
-  const done = mates.filter((m) => m.data && m.status === 'Done')
-  const me: Answers = person
-  const lead = !person.together
-    ? "Here's what Reach will search for. Your map shows the neighborhoods that fit."
-    : !mates.length
-      ? "Here's your part. Invite someone from your map and their answers will appear next to yours."
-      : done.length
-        ? `${done.map((m) => m.name).join(' and ')} finished too, so your map shows places that work for all of you.`
-        : `We'll add ${mates.map((m) => m.name).join(' and ')} as soon as they finish. You can open your map now.`
+export function PlanReady({ me, people, together, celebrate, onOpenMap, onEdit }: Props) {
+  const others = people.filter((p) => p.id !== me.id)
+  const done = others.filter((p) => p.done)
+  const waiting = others.filter((p) => !p.done)
+  const names = (ps: Person[]) => ps.map((p) => p.name || 'someone').join(' and ')
+  const lead = !together
+    ? "Here's what Rentdezvous will search for. Your map shows the neighborhoods that fit."
+    : !others.length
+      ? "Here's your part. Share your invite from the map and everyone's answers will appear next to yours."
+      : waiting.length
+        ? `We'll add ${names(waiting)} as soon as they finish. You can open your map now.`
+        : `${names(done)} finished too, so your map shows places that work for all of you.`
 
-  const all: Answers[] = [me, ...done.map((m) => m.data!)]
+  const all = [me, ...done]
   const total = all.reduce((a, d) => a + (d.budget ?? 0), 0)
   const tops = [...new Set(all.map((d) => d.ranking[0]))]
 
@@ -64,28 +65,26 @@ export function PlanReady({ person, celebrate, onOpenMap, onEdit }: Props) {
       <div className="plan-in">
         <h1>Your plan is ready.</h1>
         <p className="lead">{lead}</p>
-        <div className={`cards${!person.together || !mates.length ? ' solo' : ''}`}>
-          <Card name="You" color="var(--accent)" d={me} you />
-          {person.together &&
-            mates.map((m) =>
-              m.status === 'Done' ? (
-                <Card key={m.name} name={m.name} color={m.color} d={m.data!} />
-              ) : (
-                <article className="pc wait" key={m.name}>
-                  <div className="av" style={{ background: m.color, width: 40, height: 40 }}>
-                    {m.name[0]}
-                  </div>
-                  <div className="dots">
-                    <i />
-                    <i />
-                    <i />
-                  </div>
-                  <p>
-                    <b style={{ color: 'var(--ink)', fontWeight: 500 }}>{m.name}</b> is {m.status === 'Invited' ? 'yet to open the invite' : 'still answering'}. Their plan appears here when they finish.
-                  </p>
-                </article>
-              ),
-            )}
+        <div className={`cards${!others.length ? ' solo' : ''}`}>
+          <Card person={me} you />
+          {done.map((p) => (
+            <Card key={p.id} person={p} />
+          ))}
+          {waiting.map((p) => (
+            <article className="pc wait" key={p.id}>
+              <div className="av" style={{ background: p.color, width: 40, height: 40 }}>
+                {(p.name || '?')[0].toUpperCase()}
+              </div>
+              <div className="dots">
+                <i />
+                <i />
+                <i />
+              </div>
+              <p>
+                <b style={{ color: 'var(--ink)', fontWeight: 500 }}>{p.name || 'Someone'}</b> is still answering. Their plan appears here when they finish.
+              </p>
+            </article>
+          ))}
         </div>
         {done.length > 0 && (
           <div className="lineup two">
@@ -100,7 +99,7 @@ export function PlanReady({ person, celebrate, onOpenMap, onEdit }: Props) {
           </div>
         )}
         <button className="go open" onClick={onOpenMap}>
-          Open your map{' '}
+          Open {others.length ? 'the group' : 'your'} map{' '}
           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
             <path d="M3 8h10M9 4l4 4-4 4" />
           </svg>
