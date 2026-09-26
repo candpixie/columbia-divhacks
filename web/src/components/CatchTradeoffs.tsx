@@ -6,6 +6,7 @@ import { useEffect, useMemo, useState } from "react";
 import { PLACES, placeById } from "@/lib/places";
 import { commute, loadData, nearestHex, UNREACHABLE, type Data, type Rent } from "@/lib/score";
 import { incomeFromBudget, trueCost } from "@/lib/trueCost";
+import PressureCheck from "./PressureCheck";
 
 const money = (n: number) => `$${Math.round(n).toLocaleString()}`;
 const hrs = (n: number) => (n < 10 ? n.toFixed(1) : Math.round(n).toString());
@@ -61,12 +62,13 @@ export default function CatchTradeoffs({ lat, lon }: { lat: number; lon: number 
     // pricier but shorter: the biggest time win within +$600
     const faster = options.filter((o) => o.wk < wk - 5 && o.rent > rent && o.rent <= rent + 600)
       .sort((a, b) => a.wk - b.wk).slice(0, 1);
-    return { unreachable: false as const, place: place.name, rent, median, wk, sat, here, income, cheaper, faster };
+    return { unreachable: false as const, place: place.name, rent, median, wk, sat, here, income, cheaper, faster,
+      homeNta, homeName: short(data.ntas[homeNta]?.name ?? "") };
   }, [data, work, beds, rentInput, lat, lon]);
 
   return (
     <section className="mt-4 rounded-2xl bg-white p-5 shadow-sm">
-      <h3 className="text-xs font-semibold uppercase tracking-wide text-stone-400">The cheap-rent tradeoff</h3>
+      <h3 className="text-xs font-semibold uppercase tracking-wide text-stone-400">The cheap-rent tradeoff + pressure check</h3>
       <div className="mt-3 grid grid-cols-2 gap-2 text-sm sm:grid-cols-3">
         <label className="text-xs text-stone-500">You work / study at
           <select value={work} onChange={(e) => setWork(e.target.value)} className="mt-1 w-full rounded-lg border border-stone-200 bg-white px-2 py-1.5 text-sm text-stone-900">
@@ -118,6 +120,7 @@ export default function CatchTradeoffs({ lat, lon }: { lat: number; lon: number 
               );
             })}
           </ul>
+          <PressureCheck nta={result.homeNta} name={result.homeName} rent={result.rent} median={result.median} typedRent={Number(rentInput) > 300} />
           <p className="mt-2 text-[11px] leading-snug text-stone-400">
             Area median rents (StreetEasy) unless you enter the asking rent. 5 weekday + 1 Saturday round trips; time valued at half your hourly pay (US DOT), pay estimated from the 40× rule.
           </p>
