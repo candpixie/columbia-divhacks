@@ -86,11 +86,18 @@ export function parseRules(text: string): Parsed {
   const mins = t.match(/(\d{1,3})\s*(?:min|mins|minutes|m\b)/) ?? t.match(/(?:under|max|within)\s*(\d{1,3})\b(?!\s*k)/);
   if (mins) out.maxMin = Math.min(90, Math.max(10, +mins[1]));
   const money = t.match(/\$\s*(\d[\d,]*(?:\.\d+)?)\s*(k)?/) ?? t.match(/(\d[\d,]*(?:\.\d+)?)\s*(k)?\s*(?:\/\s*mo|a month|per month|budget|rent|dollars)/)
-    ?? t.match(/budget\D{0,12}(\d[\d,]*(?:\.\d+)?)\s*(k)?/);
+    ?? t.match(/budget\D{0,12}(\d[\d,]*(?:\.\d+)?)\s*(k)?/)
+    ?? t.match(/(?:^|[^\d.])(\d{1,2}(?:\.\d+)?)\s*(k)\b/) // bare "2k", "1.5k"
+    ?? t.match(/(?:^|[^\d$])(\d{1,2},?\d{3})(?!\s*(?:min|m\b|minutes))/); // bare "1800", "2,000"
   if (money) {
     let v = parseFloat(money[1].replace(/,/g, ""));
     if (money[2] || v < 20) v *= 1000;
     if (v >= 300 && v <= 20000) out.budget = Math.round(v);
+  }
+  // bare two-digit number left over ("columbia 45 1800") is the commute
+  if (!out.maxMin) {
+    const bare = t.replace(/\d[\d,]*(?:\.\d+)?\s*k\b|\$\s*[\d,.]+|\d{3,}/g, " ").match(/(?<!\b(?:am|im|i'm|age|aged|years?))(?:^|\s)([1-8]\d)(?!\s*(?:yo|years?|y\/o))(?=\s|[,.!?]|$)/);
+    if (bare) out.maxMin = +bare[1];
   }
   return out;
 }
@@ -119,7 +126,9 @@ export function recommend(data: Data, people: Person[]): string {
   const budget = people.reduce((s, p) => s + p.budget, 0);
   if (!ranked.length) {
     const tight = [...people].sort((a, b) => a.maxMin - b.maxMin)[0];
-    return `Nothing fits all of you yet (${beds} under ${money(budget)}). Try a bigger budget, or ${tight.name} allowing a longer commute than ${tight.maxMin} min.\n${mapLink(people)}`;
+    const who = people.length > 1 ? "all of you" : "you";
+    const longer = people.length > 1 ? `${tight.name} allowing more than ${tight.maxMin} min` : `a commute longer than ${tight.maxMin} min`;
+    return `Nothing fits ${who} yet (${beds} under ${money(budget)}). Try a bigger budget, or ${longer}.\n${mapLink(people)}`;
   }
   const lines = ranked.slice(0, 3).map((r, i) =>
     `${i + 1}. ${r.name}: ~${money(r.rent)} ${beds} · ${r.times.map((t, k) => `${people[k].name} ${t}m`).join(", ")}`);
