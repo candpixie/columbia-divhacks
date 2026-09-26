@@ -9,7 +9,10 @@ const BEDS = new Set(["studio", "1br", "2br", "3br"]);
 let pool: Pool | null = null;
 function db() {
   if (!process.env.TIGER_DATABASE_URL) return null;
-  pool ??= new Pool({ connectionString: process.env.TIGER_DATABASE_URL, max: 3, connectionTimeoutMillis: 4000 });
+  // libpq semantics for sslmode=require: encrypted, like psql/psycopg (node-pg otherwise demands full cert verification)
+  const url = new URL(process.env.TIGER_DATABASE_URL);
+  url.searchParams.set("uselibpqcompat", "true");
+  pool ??= new Pool({ connectionString: url.toString(), max: 3, connectionTimeoutMillis: 4000 });
   return pool;
 }
 
