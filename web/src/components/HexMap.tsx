@@ -8,6 +8,9 @@ import { H3HexagonLayer } from "@deck.gl/geo-layers";
 import { ScatterplotLayer } from "@deck.gl/layers";
 import type { Data, HexResult } from "@/lib/score";
 
+// Turbopack can't resolve maplibre's worker URL, so the worker is served from /public (copied by predev/prebuild).
+maplibregl.setWorkerUrl("/maplibre/maplibre-gl-worker.mjs");
+
 type Props = {
   data: Data;
   results: HexResult[];
@@ -82,5 +85,10 @@ export default function HexMap({ data, results, selectedNta, workPins, onPick, f
     });
   }, [data, results, selectedNta, workPins, onPick, fill, fillKey]);
 
-  return <div ref={el} className="absolute inset-0" />;
+  // maplibre's CSS sets the container to position:relative, so it sits inside a full-screen wrapper.
+  return (
+    <div className="absolute inset-0">
+      <div ref={el} className="h-full w-full" />
+    </div>
+  );
 }
