@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Manhattan Haunt</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22%3E%3Cpath d=%22M2 15V7a6 6 0 0 1 12 0v8l-2-2-2 2-2-2-2 2-2-2z%22 fill=%22%237DF9FF%22/%3E%3C/svg%3E" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;500;700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div id="map"></div>
+    <canvas id="fx"></canvas>
+    <div id="vignette"></div>
+
+    <section id="hud" hidden>
+      <div class="card objective">
+        <p class="label">Your mission</p>
+        <p id="clue"></p>
+        <ol id="hints"></ol>
+      </div>
+      <div class="card stats">
+        <div><span class="label">Score</span><b id="score">0</b></div>
+        <div><span class="label">Time</span><b id="time">0:00</b></div>
+        <div><span class="label">Landmarks</span><b id="lm">0</b></div>
+      </div>
+      <canvas id="minimap" width="130" height="260" aria-label="Minimap of streets you've explored"></canvas>
+      <div id="toast" hidden></div>
+      <div id="warn" hidden></div>
+    </section>
+
+    <div id="dpad" aria-hidden="true">
+      <button data-d="up">▲</button><button data-d="left">◀</button><button data-d="right">▶</button><button data-d="down">▼</button>
+    </div>
+
+    <section id="title" class="screen">
+      <div class="panel">
+        <h1 id="title-text"></h1>
+        <p id="tagline"></p>
+        <ul class="how">
+          <li><b>Move</b> with arrow keys / WASD, or swipe</li>
+          <li><b>Turn</b> at intersections. Streets only: buildings are walls.</li>
+          <li><b>Landmarks</b> give points and a hint about the secret place</li>
+          <li><b>Don't get caught.</b> It gets faster.</li>
+        </ul>
+        <button id="start" class="btn">Start</button>
+        <p class="small" id="loading">Loading Manhattan…</p>
+      </div>
+    </section>
+
+    <section id="over" class="screen" hidden>
+      <div class="panel wide">
+        <h2 id="over-title"></h2>
+        <p id="over-sub"></p>
+        <div class="over-grid">
+          <canvas id="route" width="200" height="400" aria-label="Your route and the secret place"></canvas>
+          <div>
+            <table id="breakdown"></table>
+            <p class="label">Landmarks visited</p>
+            <p id="visited" class="small"></p>
+            <p class="label">High scores</p>
+            <ol id="scores" class="small"></ol>
+          </div>
+        </div>
+        <button id="again" class="btn">Play again</button>
+      </div>
+    </section>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

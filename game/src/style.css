@@ -1,0 +1,59 @@
+:root {
+  --bg: #07080d;
+  --ink: #f1f3f8;
+  --muted: #9aa3b5;
+  --ghost: #7df9ff;
+  --danger: #ff3b6b;
+  --gold: #ffd166;
+  --card: rgb(10 12 20 / 0.82);
+  --line: rgb(255 255 255 / 0.12);
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { margin: 0; height: 100%; overflow: hidden; background: var(--bg); color: var(--ink); font: 14px/1.45 Inter, system-ui, sans-serif; }
+#map, #fx, #vignette { position: fixed; inset: 0; }
+#fx { pointer-events: auto; touch-action: none; }
+#vignette { pointer-events: none; box-shadow: inset 0 0 0 0 var(--danger); transition: box-shadow 0.2s; }
+.label { font: 400 9px "Press Start 2P", monospace; letter-spacing: 0.06em; color: var(--muted); text-transform: uppercase; margin: 0 0 6px; display: block; }
+.small { font-size: 12.5px; color: var(--muted); }
+
+.card { position: fixed; background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; backdrop-filter: blur(6px); }
+.objective { top: calc(12px + env(safe-area-inset-top, 0px)); left: 12px; width: min(340px, calc(100vw - 24px)); }
+#clue { margin: 0; font-weight: 700; font-size: 15px; }
+#hints { margin: 8px 0 0; padding-left: 18px; color: var(--gold); font-size: 13px; }
+#hints li { margin-top: 3px; }
+.stats { top: calc(12px + env(safe-area-inset-top, 0px)); right: 12px; display: flex; gap: 14px; }
+.stats b { font: 400 13px "Press Start 2P", monospace; }
+#minimap { position: fixed; right: 12px; bottom: calc(12px + env(safe-area-inset-bottom, 0px)); width: 130px; height: 260px; border-radius: 12px; border: 1px solid var(--line); background: rgb(0 0 0 / 0.6); }
+#toast { position: fixed; left: 50%; bottom: calc(22px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); width: min(460px, calc(100vw - 170px)); background: var(--card); border: 1px solid var(--gold); border-radius: 14px; padding: 12px 14px; }
+#toast b { color: var(--gold); }
+#warn { position: fixed; left: 50%; top: 16px; transform: translateX(-50%); font: 400 11px "Press Start 2P", monospace; color: var(--danger); text-shadow: 0 0 8px var(--danger); }
+
+.screen { position: fixed; inset: 0; display: grid; place-items: center; background: rgb(3 4 8 / 0.72); padding: 16px; z-index: 10; }
+.panel { background: #0c0e17; border: 1px solid var(--line); border-radius: 18px; padding: 28px; width: min(460px, 100%); text-align: center; }
+.panel.wide { width: min(640px, 100%); max-height: calc(100dvh - 32px); overflow-y: auto; }
+h1, h2 { font: 400 22px/1.4 "Press Start 2P", monospace; margin: 0 0 12px; color: var(--ghost); text-shadow: 0 0 12px rgb(125 249 255 / 0.5); }
+h2.lose { color: var(--danger); text-shadow: 0 0 12px rgb(255 59 107 / 0.5); }
+.how { text-align: left; margin: 18px 0; padding-left: 18px; color: var(--muted); }
+.how b { color: var(--ink); }
+.btn { font: 400 13px "Press Start 2P", monospace; background: var(--ghost); color: #041014; border: 0; border-radius: 12px; padding: 14px 22px; cursor: pointer; }
+.btn:disabled { opacity: 0.4; cursor: wait; }
+.over-grid { display: grid; grid-template-columns: 200px 1fr; gap: 18px; text-align: left; margin: 16px 0; }
+#route { width: 200px; height: 400px; border-radius: 12px; border: 1px solid var(--line); background: #000; }
+#breakdown { width: 100%; border-collapse: collapse; margin-bottom: 12px; }
+#breakdown td { padding: 4px 0; border-bottom: 1px solid var(--line); }
+#breakdown td:last-child { text-align: right; font-variant-numeric: tabular-nums; }
+#breakdown tr:last-child td { font-weight: 700; color: var(--gold); border-bottom: 0; }
+#scores { padding-left: 18px; margin: 0; }
+
+#dpad { position: fixed; left: 12px; bottom: calc(12px + env(safe-area-inset-bottom, 0px)); display: none; grid-template-areas: ". up ." "left . right" ". down ."; gap: 4px; z-index: 5; }
+#dpad button { width: 52px; height: 52px; border-radius: 12px; border: 1px solid var(--line); background: var(--card); color: var(--ink); font-size: 18px; }
+#dpad [data-d="up"] { grid-area: up; } #dpad [data-d="left"] { grid-area: left; } #dpad [data-d="right"] { grid-area: right; } #dpad [data-d="down"] { grid-area: down; }
+@media (pointer: coarse) { #dpad.on { display: grid; } }
+@media (max-width: 640px) {
+  .over-grid { grid-template-columns: 1fr; }
+  #route { margin: 0 auto; }
+  #minimap { width: 90px; height: 180px; }
+  #toast { width: calc(100vw - 24px); bottom: calc(200px + env(safe-area-inset-bottom, 0px)); }
+}
