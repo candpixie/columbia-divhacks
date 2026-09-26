@@ -53,7 +53,7 @@ export async function phraseWithGemini(prompt: string): Promise<string | null> {
       method: "POST",
       headers: { "Content-Type": "application/json", "x-goog-api-key": key },
       signal: AbortSignal.timeout(6000),
-      body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }], generationConfig: { maxOutputTokens: 120 } }),
+      body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }], generationConfig: { maxOutputTokens: 200, thinkingConfig: { thinkingBudget: 0 } } }),
     });
     if (!res.ok) return null;
     const body = (await res.json()) as { candidates?: { content?: { parts?: { text?: string }[] } }[] };

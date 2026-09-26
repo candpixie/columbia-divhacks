@@ -211,13 +211,18 @@ async function referee(data: Data, spaceId: string, g: Group, senderId: string, 
   if (!alt) return [];
   const rentDiff = named.rent - alt.rent;
   const facts = g.people.map((p, i) => `${p.name} ${named.times[i]}m→${alt.times[i]}m`).join(", ");
-  const fallback = `Fair. ${short(alt.name)} vs ${short(named.name)}: ${rentDiff >= 0 ? `${money(rentDiff)}/mo cheaper` : `${money(-rentDiff)}/mo more`}, commutes ${facts}.`;
+  const fallback = `Fair. ${short(alt.name)} vs ${short(named.name)}: ${rentDiff >= 0 ? `${money(rentDiff)}/mo cheaper` : `${money(-rentDiff)}/mo more expensive`}, commutes ${facts}.`;
+  const rentPhrase = rentDiff >= 0 ? `${money(rentDiff)}/mo cheaper` : `${money(-rentDiff)}/mo more expensive`;
   const polished = await phraseWithGemini(
-    `Roommates are choosing a NYC neighborhood. ${me?.name ?? "Someone"} objected: "${lower}". ` +
-    `Suggest ${short(alt.name)} instead of ${short(named.name)} in one or two friendly sentences for a group chat. ` +
-    `Use ONLY these facts: rent difference ${rentDiff >= 0 ? `${money(rentDiff)}/mo cheaper` : `${money(-rentDiff)}/mo more`} for the whole unit; commutes ${facts}. No other numbers.`,
+    `You are Rent Radius, a bot in a NYC roommate group chat. ${me?.name ?? "Someone"} said: "${lower}". ` +
+    `In one or two short, friendly sentences, suggest ${short(alt.name)} instead of ${short(named.name)}. ` +
+    `You must include the exact phrase "${rentPhrase}" and these commutes: ${facts}. ` +
+    `Do not invent any other facts, places or numbers. Do not speak as a roommate.`,
   );
-  return [{ kind: "text", space: spaceId, text: polished ?? fallback }];
+  // Only trust the model's wording if it kept the money fact exactly right.
+  const opposite = rentDiff >= 0 ? /\b(more|pricier|expensive)\b/i : /\b(less|cheaper|save)\b/i;
+  const safe = polished && polished.includes(rentPhrase) && !opposite.test(polished.replace(rentPhrase, "")) ? polished : null;
+  return [{ kind: "text", space: spaceId, text: safe ?? fallback }];
 }
 
 function decide(data: Data, spaceId: string, g: Group, winner: string): Action[] {
