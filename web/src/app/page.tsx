@@ -7,6 +7,9 @@ import {
   bedsFor, loadData, nearestHex, rankNeighborhoods, scoreHexes,
   type Data, type Day, type Person,
 } from "@/lib/score";
+import { formatValue, goodness, loadLayers, percentile, type Layer } from "@/lib/layers";
+
+import TrueCost from "@/components/TrueCost";
 
 const HexMap = dynamic(() => import("@/components/HexMap"), { ssr: false });
 
@@ -31,6 +34,10 @@ export default function Home() {
   const [day, setDay] = useState<Day>("weekday");
   const [selected, setSelected] = useState<string | null>(null);
   const [ready, setReady] = useState(false);
+  const [layers, setLayers] = useState<Layer[]>([]);
+  const [colorBy, setColorBy] = useState("fit");
+  const [showSafety, setShowSafety] = useState(false);
+  const [compareWith, setCompareWith] = useState<string | null>(null);
 
   // The URL only exists in the browser, so shared-link state is read after mount.
   /* eslint-disable react-hooks/set-state-in-effect */
@@ -40,6 +47,7 @@ export default function Home() {
     setDay(s.day);
     setReady(true);
     loadData().then(setData);
+    loadLayers().then(setLayers);
   }, []);
   /* eslint-enable react-hooks/set-state-in-effect */
 
@@ -63,17 +71,49 @@ export default function Home() {
   );
   const onPick = useCallback((nta: string) => setSelected(nta), []);
 
+  const visibleLayers = useMemo(() => layers.filter((l) => showSafety || !l.optional), [layers, showSafety]);
+  const activeLayer = visibleLayers.find((l) => l.id === colorBy);
+  // Color by a data layer: red (worst in NYC) -> teal (best). Hexes that don't fit your search stay faint.
+  const fill = useMemo(() => {
+    if (!activeLayer || !data) return undefined;
+    return (r: { i: number; fits: boolean }) => {
+      const h = data.hexes[r.i];
+      const v = activeLayer.hex ? activeLayer.hex[r.i] : activeLayer.nta[h.nta];
+      if (v === undefined) return [200, 200, 200, 20] as [number, number, number, number];
+      const g = goodness(activeLayer, v);
+      const c = [Math.round(225 - 190 * g), Math.round(80 + 100 * g), Math.round(90 + 60 * g)];
+      return [c[0], c[1], c[2], r.fits ? 200 : 60] as [number, number, number, number];
+    };
+  }, [activeLayer, data]);
+
   const update = (k: number, patch: Partial<Person>) =>
     setPeople((ps) => ps.map((p, i) => (i === k ? { ...p, ...patch } : p)));
 
   const sel = selected && data ? data.ntas[selected] : null;
+  // Default comparison: the neighborhood with the biggest rent-vs-time tradeoff against the selected one.
+  const compareTarget = useMemo(() => {
+    const others = ranked.filter((r) => r.nta !== selected);
+    if (compareWith && others.some((o) => o.nta === compareWith)) return compareWith;
+    const me = ranked.find((r) => r.nta === selected);
+    if (!others.length) return null;
+    if (!me) return [...others].sort((x, y) => x.rent - y.rent)[0].nta;
+    const mins = (r: typeof me) => r.times.reduce((a, b) => a + b, 0);
+    const tradeoff = (o: typeof me) => {
+      const dr = o.rent - me.rent;
+      const dt = mins(o) - mins(me);
+      return dr * dt < 0 ? Math.abs(dt) : -Infinity; // cheaper-but-longer or pricier-but-shorter
+    };
+    const best = [...others].sort((x, y) => tradeoff(y) - tradeoff(x))[0];
+    return tradeoff(best) > -Infinity ? best.nta : [...others].sort((x, y) => x.rent - y.rent)[0].nta;
+  }, [ranked, selected, compareWith]);
   const selRow = ranked.find((r) => r.nta === selected);
   const beds = bedsFor(people.length);
   const budget = people.reduce((s, p) => s + p.budget, 0);
 
   return (
     <main className="relative h-dvh w-full overflow-hidden bg-stone-100 text-stone-900">
-      {data && <HexMap data={data} results={results} selectedNta={selected} workPins={workPins} onPick={onPick} />}
+      {data && <HexMap data={data} results={results} selectedNta={selected} workPins={workPins} onPick={onPick}
+        fill={fill} fillKey={activeLayer?.id ?? "fit"} />}
       {!data && <div className="absolute inset-0 grid place-items-center text-stone-500">Loading the subway…</div>}
 
       <aside className="absolute left-4 top-4 bottom-4 flex w-[22rem] max-w-[calc(100vw-2rem)] flex-col gap-3 overflow-y-auto rounded-2xl bg-white/95 p-4 shadow-xl backdrop-blur">
@@ -90,6 +130,26 @@ export default function Home() {
             </button>
           ))}
         </div>
+
+        {layers.length > 0 && (
+          <label className="block text-xs text-stone-500">Color the map by
+            <select value={activeLayer ? colorBy : "fit"} onChange={(e) => setColorBy(e.target.value)}
+              className="mt-1 w-full rounded-md border border-stone-200 bg-white px-2 py-1.5 text-sm text-stone-900">
+              <option value="fit">Where you all fit (commute + rent)</option>
+              {[...new Set(visibleLayers.map((l) => l.group))].map((g) => (
+                <optgroup key={g} label={g}>
+                  {visibleLayers.filter((l) => l.group === g).map((l) => <option key={l.id} value={l.id}>{l.label}</option>)}
+                </optgroup>
+              ))}
+            </select>
+            {activeLayer && (
+              <span className="mt-1 block">
+                <span className="inline-block h-2 w-24 rounded-full align-middle" style={{ background: "linear-gradient(90deg, rgb(225,80,90), rgb(35,180,150))" }} />
+                <span className="ml-2">worse → better in NYC · {activeLayer.source}, {activeLayer.year}</span>
+              </span>
+            )}
+          </label>
+        )}
 
         {people.map((p, k) => (
           <section key={k} className="rounded-xl border border-stone-200 p-3">
@@ -123,6 +183,13 @@ export default function Home() {
             className="rounded-xl border border-dashed border-stone-300 py-2 text-sm text-stone-500 hover:border-stone-500 hover:text-stone-800">
             + Add roommate
           </button>
+        )}
+
+        {layers.some((l) => l.optional) && (
+          <label className="flex items-center gap-2 text-xs text-stone-500">
+            <input type="checkbox" checked={showSafety} onChange={(e) => setShowSafety(e.target.checked)} />
+            Show safety data (per capita, never part of the ranking)
+          </label>
         )}
 
         <section>
@@ -177,6 +244,39 @@ export default function Home() {
               ))
               : <p className="text-stone-500">Commute is over someone&apos;s limit from here.</p>}
           </div>
+          {data && selected && compareTarget && (
+            <TrueCost data={data} people={people} workIdx={workIdx} beds={beds} a={selected} b={compareTarget}
+              options={ranked} onChangeB={setCompareWith} />
+          )}
+          {visibleLayers.length > 0 && selected && (
+            <div className="mt-3 max-h-[45vh] space-y-3 overflow-y-auto border-t border-stone-200 pt-3">
+              {[...new Set(visibleLayers.map((l) => l.group))].map((g) => (
+                <div key={g}>
+                  <h3 className="text-xs font-semibold uppercase tracking-wide text-stone-400">{g}</h3>
+                  {visibleLayers.filter((l) => l.group === g).map((l) => {
+                    const v = l.nta[selected];
+                    if (v === undefined) return null;
+                    const pct = percentile(l, v);
+                    return (
+                      <div key={l.id} className="mt-1 text-sm" title={l.note ?? `${l.source}, ${l.year}`}>
+                        <div className="flex justify-between gap-2">
+                          <span>{l.label}</span>
+                          <span className="shrink-0 text-stone-600">{formatValue(l, v)}</span>
+                        </div>
+                        {pct !== null && (
+                          <div className="mt-0.5 h-1 rounded-full bg-stone-100">
+                            <div className="h-1 rounded-full" style={{ width: `${pct}%`, background: pct >= 50 ? "rgb(35,180,150)" : "rgb(225,120,90)" }} />
+                          </div>
+                        )}
+                        {l.note && l.optional && <p className="text-xs text-stone-400">{l.note}</p>}
+                      </div>
+                    );
+                  })}
+                </div>
+              ))}
+              <p className="text-xs text-stone-400">Bars: how this neighborhood compares with the rest of NYC.</p>
+            </div>
+          )}
         </aside>
       )}
     </main>

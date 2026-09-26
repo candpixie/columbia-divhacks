@@ -4,7 +4,7 @@
 export type Hex = { h3: string; nta: string; lat: number; lng: number };
 export type Rent = { studio: number; "1br": number; "2br": number; "3br": number };
 export type Nta = { name: string; borough: string; rent: Rent; estimated: boolean; trend: number | null };
-export type Person = { name: string; place: string; maxMin: number; budget: number };
+export type Person = { name: string; place: string; maxMin: number; budget: number; income?: number };
 export type Day = "weekday" | "saturday";
 
 export type Data = {

@@ -12,6 +12,8 @@ type Props = {
   data: Data;
   results: HexResult[];
   selectedNta: string | null;
+  fill?: (r: HexResult) => [number, number, number, number]; // overrides the default fit coloring
+  fillKey?: string; // change when `fill` changes
   workPins: { lat: number; lng: number; color: [number, number, number] }[];
   onPick: (nta: string) => void;
 };
@@ -24,7 +26,7 @@ function color(r: HexResult, maxMin: number, selected: boolean): [number, number
   return [...c, selected ? 230 : 150];
 }
 
-export default function HexMap({ data, results, selectedNta, workPins, onPick }: Props) {
+export default function HexMap({ data, results, selectedNta, workPins, onPick, fill, fillKey }: Props) {
   const el = useRef<HTMLDivElement>(null);
   const overlay = useRef<MapboxOverlay | null>(null);
 
@@ -58,13 +60,13 @@ export default function HexMap({ data, results, selectedNta, workPins, onPick }:
           id: "hexes",
           data: results,
           getHexagon: (r) => data.hexes[r.i].h3,
-          getFillColor: (r) => color(r, maxMin, data.hexes[r.i].nta === selectedNta),
+          getFillColor: (r) => (fill ? fill(r) : color(r, maxMin, data.hexes[r.i].nta === selectedNta)),
           getLineColor: (r) => (data.hexes[r.i].nta === selectedNta ? [20, 20, 30, 255] : [255, 255, 255, 60]),
           lineWidthMinPixels: 1,
           extruded: false,
           pickable: true,
           onClick: (info) => info.object && onPick(data.hexes[info.object.i].nta),
-          updateTriggers: { getFillColor: [results, selectedNta], getLineColor: [selectedNta] },
+          updateTriggers: { getFillColor: [results, selectedNta, fillKey], getLineColor: [selectedNta] },
         }),
         new ScatterplotLayer({
           id: "work",
@@ -78,7 +80,7 @@ export default function HexMap({ data, results, selectedNta, workPins, onPick }:
         }),
       ],
     });
-  }, [data, results, selectedNta, workPins, onPick]);
+  }, [data, results, selectedNta, workPins, onPick, fill, fillKey]);
 
   return <div ref={el} className="absolute inset-0" />;
 }
