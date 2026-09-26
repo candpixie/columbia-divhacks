@@ -1,23 +1,13 @@
 // Quarterly rent history for one neighborhood, served from Tiger Data (TimescaleDB continuous aggregate).
 // Falls back to the exported rent_trend.json so the demo never breaks if the database is unreachable.
-import { Pool } from "pg";
+import { tiger } from "@/lib/db";
 
 const BEDS = new Set(["studio", "1br", "2br", "3br"]);
-
-let pool: Pool | null = null;
-function db() {
-  if (!process.env.TIGER_DATABASE_URL) return null;
-  // libpq semantics for sslmode=require: encrypted, like psql/psycopg (node-pg otherwise demands full cert verification)
-  const url = new URL(process.env.TIGER_DATABASE_URL);
-  url.searchParams.set("uselibpqcompat", "true");
-  pool ??= new Pool({ connectionString: url.toString(), max: 3, connectionTimeoutMillis: 4000 });
-  return pool;
-}
 
 type Point = [string, number];
 
 async function fromTiger(nta: string, beds: string): Promise<Point[] | null> {
-  const p = db();
+  const p = tiger();
   if (!p) return null;
   const { rows } = await p.query<{ quarter: string; avg_rent: string }>(
     `SELECT to_char(quarter, 'YYYY-MM') AS quarter, avg_rent
