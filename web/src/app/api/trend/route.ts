@@ -1,7 +1,5 @@
 // Quarterly rent history for one neighborhood, served from Tiger Data (TimescaleDB continuous aggregate).
 // Falls back to the exported rent_trend.json so the demo never breaks if the database is unreachable.
-import { readFile } from "node:fs/promises";
-import path from "node:path";
 import { Pool } from "pg";
 
 const BEDS = new Set(["studio", "1br", "2br", "3br"]);
@@ -29,9 +27,10 @@ async function fromTiger(nta: string, beds: string): Promise<Point[] | null> {
   return rows.map((r) => [r.quarter, Number(r.avg_rent)]);
 }
 
-async function fromFile(nta: string, beds: string): Promise<Point[]> {
-  const file = path.join(process.cwd(), "public", "data", "rent_trend.json");
-  const trend = JSON.parse(await readFile(file, "utf8"));
+// Static export of the same aggregate, fetched over HTTP (serverless functions can't read /public on Vercel).
+async function fromFile(origin: string, nta: string, beds: string): Promise<Point[]> {
+  const res = await fetch(new URL("/data/rent_trend.json", origin));
+  const trend = await res.json();
   return trend[nta]?.[beds] ?? [];
 }
 
@@ -49,7 +48,7 @@ export async function GET(request: Request) {
     console.error("tiger query failed, using static file", e);
   }
   try {
-    return Response.json({ source: "static", series: await fromFile(nta, beds) });
+    return Response.json({ source: "static", series: await fromFile(url.origin, nta, beds) });
   } catch {
     return Response.json({ source: "none", series: [] });
   }

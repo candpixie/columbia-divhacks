@@ -8,4 +8,4 @@ bun run chat      # local group-chat simulator, no keys needed
 bun run start     # iMessage via Spectrum (needs PROJECT_ID, PROJECT_SECRET in .env)
 ```
 
-Optional: `GEMINI_API_KEY` (fallback parser), `MAP_URL` (deployed site, default http://localhost:3001).
+Optional: `GEMINI_API_KEY` (fallback parser), `MAP_URL` (deployed site, default https://rent-radius.vercel.app).

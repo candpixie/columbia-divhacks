@@ -10,7 +10,7 @@ import {
 import { parseWithGemini } from "./gemini";
 
 const DATA_DIR = path.resolve(import.meta.dir, "../../web/public/data");
-const MAP_URL = process.env.MAP_URL ?? "http://localhost:3001";
+const MAP_URL = process.env.MAP_URL ?? "https://rent-radius.vercel.app";
 
 export function loadData(): Data {
   const read = (f: string) => readFileSync(path.join(DATA_DIR, f));
