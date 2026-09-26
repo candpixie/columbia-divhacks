@@ -1,0 +1,740 @@
+zip,city,county
+10001,New York,New York City
+10002,Knickerbocker,New York City
+10002,New York,New York City
+10003,New York,New York City
+10004,Bowling Green,New York City
+10004,New York,New York City
+10005,New York,New York City
+10006,Trinity,New York City
+10006,New York,New York City
+10007,New York,New York City
+10008,New York,New York City
+10009,New York,New York City
+10010,New York,New York City
+10011,New York,New York City
+10012,New York,New York City
+10012,Princetown,New York City
+10013,Canal Street,New York City
+10013,Chinatown,New York City
+10013,New York,New York City
+10014,New York,New York City
+10015,New York,New York City
+10016,New York,New York City
+10017,New York,New York City
+10018,New York,New York City
+10019,New York,New York City
+10020,New York,New York City
+10021,New York,New York City
+10022,New York,New York City
+10023,New York,New York City
+10024,New York,New York City
+10025,New York,New York City
+10026,New York,New York City
+10027,New York,New York City
+10028,New York,New York City
+10029,New York,New York City
+10030,New York,New York City
+10031,New York,New York City
+10032,New York,New York City
+10033,New York,New York City
+10034,New York,New York City
+10035,New York,New York City
+10036,New York,New York City
+10037,New York,New York City
+10038,Peck Slip,New York City
+10038,New York,New York City
+10039,New York,New York City
+10040,New York,New York City
+10041,New York,New York City
+10044,Roosevelt Island,New York City
+10044,New York,New York City
+10045,New York,New York City
+10048,New York,New York City
+10055,New York,New York City
+10060,New York,New York City
+10069,New York,New York City
+10090,New York,New York City
+10095,New York,New York City
+10098,New York,New York City
+10099,New York,New York City
+10101,New York,New York City
+10103,New York,New York City
+10104,New York,New York City
+10105,New York,New York City
+10106,New York,New York City
+10107,New York,New York City
+10108,New York,New York City
+10110,New York,New York City
+10111,New York,New York City
+10112,New York,New York City
+10113,New York,New York City
+10115,New York,New York City
+10116,New York,New York City
+10118,New York,New York City
+10119,New York,New York City
+10120,New York,New York City
+10121,New York,New York City
+10122,New York,New York City
+10123,New York,New York City
+10128,New York,New York City
+10129,New York,New York City
+10150,New York,New York City
+10151,New York,New York City
+10152,New York,New York City
+10153,New York,New York City
+10154,New York,New York City
+10155,New York,New York City
+10156,New York,New York City
+10158,New York,New York City
+10159,New York,New York City
+10161,New York,New York City
+10162,New York,New York City
+10163,New York,New York City
+10165,New York,New York City
+10166,New York,New York City
+10167,New York,New York City
+10168,New York,New York City
+10169,New York,New York City
+10170,New York,New York City
+10171,New York,New York City
+10172,New York,New York City
+10173,New York,New York City
+10174,New York,New York City
+10175,New York,New York City
+10176,New York,New York City
+10177,New York,New York City
+10178,New York,New York City
+10185,New York,New York City
+10199,New York,New York City
+10242,New York,New York City
+10249,New York,New York City
+10268,New York,New York City
+10270,New York,New York City
+10271,New York,New York City
+10272,New York,New York City
+10274,New York,New York City
+10276,New York,New York City
+10278,New York,New York City
+10279,New York,New York City
+10280,New York,New York City
+10281,New York,New York City
+10282,New York,New York City
+10301,Staten Island,Richmond
+10302,Staten Island,Richmond
+10303,Staten Island,Richmond
+10304,Staten Island,Richmond
+10305,Staten Island,Richmond
+10306,Staten Island,Richmond
+10307,Staten Island,Richmond
+10308,Staten Island,Richmond
+10309,Staten Island,Richmond
+10310,Staten Island,Richmond
+10311,Staten Island,Richmond
+10312,Staten Island,Richmond
+10313,Staten Island,Richmond
+10314,Staten Island,Richmond
+10451,Bronx,Bronx
+10452,Bronx,Bronx
+10453,Bronx,Bronx
+10454,Bronx,Bronx
+10455,Bronx,Bronx
+10456,Bronx,Bronx
+10457,Bronx,Bronx
+10458,Bronx,Bronx
+10459,Bronx,Bronx
+10460,Bronx,Bronx
+10461,Bronx,Bronx
+10462,Bronx,Bronx
+10463,Bronx,Bronx
+10464,Bronx,Bronx
+10465,Bronx,Bronx
+10466,Bronx,Bronx
+10467,Bronx,Bronx
+10468,Bronx,Bronx
+10469,Bronx,Bronx
+10470,Bronx,Bronx
+10471,Bronx,Bronx
+10472,Bronx,Bronx
+10473,Bronx,Bronx
+10474,Bronx,Bronx
+10475,Bronx,Bronx
+10501,Amawalk,Westchester County
+10502,Ardsley,Westchester County
+10503,Ardsley On Hudson,Westchester County
+10504,Armonk,Westchester County
+10504,North Castle,Westchester County
+10505,Baldwin Place,Westchester County
+10506,Bedford,Westchester County
+10507,Bedford Hills,Westchester County
+10509,Brewster,Putnam County
+10510,Briarcliff Manor,Westchester County
+10510,Scarborough,Westchester County
+10511,Buchanan,Westchester County
+10512,Kent Cliffs,Putnam County
+10512,Carmel,Putnam County
+10514,Chappaqua,Westchester County
+10516,Cold Spring,Putnam County
+10516,Nelsonville,Putnam County
+10517,Crompond,Westchester County
+10518,Cross River,Westchester County
+10519,Croton Falls,Westchester County
+10520,Croton On Hudson,Westchester County
+10521,Crugers,Westchester County
+10521,Croton On Hudson,Westchester County
+10522,Dobbs Ferry,Westchester County
+10523,Elmsford,Westchester County
+10524,Garrison,Putnam County
+10526,Goldens Bridge,Westchester County
+10527,Granite Springs,Westchester County
+10528,Harrison,Westchester County
+10530,Hartsdale,Westchester County
+10532,Hawthorne,Westchester County
+10533,Irvington,Westchester County
+10535,Jefferson Valley,Westchester County
+10536,Katonah,Westchester County
+10537,Lake Peekskill,Putnam County
+10538,Larchmont,Westchester County
+10540,Lincolndale,Westchester County
+10541,Lake Lincolndale,Putnam County
+10541,Mahopac,Putnam County
+10542,Mahopac Falls,Putnam County
+10543,Mamaroneck,Westchester County
+10545,Maryknoll,Westchester County
+10546,Millwood,Westchester County
+10547,Mohegan Lake,Westchester County
+10548,Montrose,Westchester County
+10549,Bedford Corners,Westchester County
+10549,Mount Kisco,Westchester County
+10550,Mount Vernon,Westchester County
+10551,Mount Vernon,Westchester County
+10552,Mount Vernon,Westchester County
+10553,Mount Vernon,Westchester County
+10560,North Salem,Westchester County
+10562,Ossining,Westchester County
+10566,Peekskill,Westchester County
+10567,Cortlandt Manor,Westchester County
+10570,Pleasantville,Westchester County
+10573,Port Chester,Westchester County
+10573,Rye Brook,Westchester County
+10576,Pound Ridge,Westchester County
+10577,Purchase,Westchester County
+10578,Purdys,Westchester County
+10579,Putnam Valley,Putnam County
+10580,Rye,Westchester County
+10583,Heathcote,Westchester County
+10583,Scarsdale,Westchester County
+10587,Shenorock,Westchester County
+10588,Shrub Oak,Westchester County
+10589,Somers,Westchester County
+10590,South Salem,Westchester County
+10591,North Tarrytown,Westchester County
+10591,Sleepy Hollow,Westchester County
+10591,Tarrytown,Westchester County
+10594,Thornwood,Westchester County
+10595,Valhalla,Westchester County
+10596,Verplanck,Westchester County
+10597,Waccabuc,Westchester County
+10706,Hastings On Hudson,Westchester County
+10707,Eastchester,Westchester County
+10707,Tuckahoe,Westchester County
+10708,Bronxville,Westchester County
+10709,Eastchester,Westchester County
+10801,New Rochelle,Westchester County
+10802,New Rochelle,Westchester County
+10803,Pelham,Westchester County
+10804,New Rochelle,Westchester County
+10805,New Rochelle,Westchester County
+10901,Airmont,Rockland County
+10901,Montebello,Rockland County
+10901,Suffern,Rockland County
+10910,Arden,Orange County
+10911,Bear Mountain,Rockland County
+10912,Bellvale,Orange County
+10913,Blauvelt,Rockland County
+10914,Blooming Grove,Orange County
+10915,Bullville,Orange County
+10916,Campbell Hall,Orange County
+10917,Central Valley,Orange County
+10918,Chester,Orange County
+10919,Circleville,Orange County
+10920,Congers,Rockland County
+10921,Florida,Orange County
+10922,Fort Montgomery,Orange County
+10923,Garnerville,Rockland County
+10924,Goshen,Orange County
+10925,Greenwood Lake,Orange County
+10926,Harriman,Orange County
+10927,Haverstraw,Rockland County
+10928,Highland Falls,Orange County
+10930,Highland Mills,Orange County
+10931,Hillburn,Rockland County
+10932,Howells,Orange County
+10933,Johnson City,Orange County
+10940,Scotchtown Branch,Orange County
+10940,Middletown,Orange County
+10941,Scotchtown Branch,Orange County
+10941,Middletown,Orange County
+10950,Monroe,Orange County
+10952,Monsey,Rockland County
+10953,Mountainville,Orange County
+10954,Bardonia,Rockland County
+10954,Nanuet,Rockland County
+10956,New City,Rockland County
+10958,New Hampton,Orange County
+10959,New Milford,Orange County
+10960,Nyack,Rockland County
+10962,Orangeburg,Rockland County
+10963,Otisville,Orange County
+10964,Palisades,Rockland County
+10965,Pearl River,Rockland County
+10968,Piermont,Rockland County
+10969,Pine Island,Orange County
+10970,Pomona,Rockland County
+10973,Slate Hill,Orange County
+10974,Sloatsburg,Rockland County
+10975,Southfields,Orange County
+10976,Sparkill,Rockland County
+10977,Chestnut Ridge,Rockland County
+10977,Spring Valley,Rockland County
+10979,Sterling Forest,Orange County
+10980,Stony Point,Rockland County
+10981,Sugar Loaf,Orange County
+10982,Tallman,Rockland County
+10983,Tappan,Rockland County
+10984,Thiells,Rockland County
+10985,Thompson Ridge,Orange County
+10986,Tomkins Cove,Rockland County
+10987,Tuxedo Park,Orange County
+10988,Unionville,Orange County
+10989,Valley Cottage,Rockland County
+10990,Warwick,Orange County
+10992,Washingtonville,Orange County
+10993,West Haverstraw,Rockland County
+10994,West Nyack,Rockland County
+10996,West Point,Orange County
+10997,West Point,Orange County
+11001,Floral Park,Nassau County
+11002,Floral Park,Nassau County
+11003,Alden Manor,Nassau County
+11003,Meacham,Nassau County
+11003,Elmont,Nassau County
+11003,Floral Park,Nassau County
+11004,Glen Oaks,Queens
+11004,Floral Park,Queens
+11005,Floral Park,Queens
+11010,Franklin Square,Nassau County
+11020,Great Neck,Nassau County
+11021,Great Neck,Nassau County
+11022,Great Neck,Nassau County
+11023,Great Neck,Nassau County
+11024,Great Neck,Nassau County
+11024,Kings Point,Nassau County
+11026,Great Neck,Nassau County
+11027,Great Neck,Nassau County
+11030,Manhasset,Nassau County
+11030,Plandome,Nassau County
+11040,New Hyde Park,Nassau County
+11042,New Hyde Park,Nassau County
+11050,Port Washington,Nassau County
+11050,Sands Point,Nassau County
+11096,Inwood,Nassau County
+11096,Far Rockaway,Nassau County
+11101,Astoria,Queens
+11101,Long Island City,Queens
+11102,Astoria,Queens
+11102,Long Island City,Queens
+11103,Astoria,Queens
+11103,Long Island City,Queens
+11104,Astoria,Queens
+11104,Long Island City,Queens
+11104,Sunnyside,Queens
+11105,Astoria,Queens
+11105,Long Island City,Queens
+11106,Astoria,Queens
+11106,Long Island City,Queens
+11109,Long Island City,Queens
+11201,Brooklyn,Kings
+11202,Brooklyn,Kings
+11203,Brooklyn,Kings
+11204,Brooklyn,Kings
+11205,Brooklyn,Kings
+11206,Brooklyn,Kings
+11207,Brooklyn,Kings
+11208,Brooklyn,Kings
+11209,Brooklyn,Kings
+11210,Brooklyn,Kings
+11211,Brooklyn,Kings
+11212,Brooklyn,Kings
+11213,Brooklyn,Kings
+11214,Brooklyn,Kings
+11215,Brooklyn,Kings
+11216,Brooklyn,Kings
+11217,Brooklyn,Kings
+11218,Brooklyn,Kings
+11219,Brooklyn,Kings
+11220,Brooklyn,Kings
+11221,Brooklyn,Kings
+11222,Brooklyn,Kings
+11223,Brooklyn,Kings
+11224,Brooklyn,Kings
+11225,Brooklyn,Kings
+11226,Brooklyn,Kings
+11228,Brooklyn,Kings
+11229,Brooklyn,Kings
+11230,Brooklyn,Kings
+11231,Brooklyn,Kings
+11232,Brooklyn,Kings
+11233,Brooklyn,Kings
+11234,Brooklyn,Kings
+11235,Brooklyn,Kings
+11236,Brooklyn,Kings
+11237,Brooklyn,Kings
+11238,Brooklyn,Kings
+11239,Brooklyn,Kings
+11240,Brooklyn,Kings
+11241,Brooklyn,Kings
+11242,Brooklyn,Kings
+11243,Brooklyn,Kings
+11247,Brooklyn,Kings
+11249,Brooklyn,Kings
+11252,Fort Hamilton,Kings
+11252,Brooklyn,Kings
+11256,Brooklyn,Kings
+11351,Flushing,Queens
+11352,Flushing,Queens
+11354,Flushing,Queens
+11355,Flushing,Queens
+11356,College Point,Queens
+11356,Flushing,Queens
+11357,Beechhurst,Queens
+11357,Malba,Queens
+11357,Flushing,Queens
+11358,Flushing,Queens
+11359,Bayside,Queens
+11359,Fort Totten,Queens
+11359,Flushing,Queens
+11360,Bayside,Queens
+11360,Flushing,Queens
+11361,Bayside,Queens
+11361,Flushing,Queens
+11362,Douglaston,Queens
+11362,Little Neck,Queens
+11362,Flushing,Queens
+11363,Douglaston,Queens
+11363,Little Neck,Queens
+11363,Flushing,Queens
+11364,Oakland Gardens,Queens
+11364,Flushing,Queens
+11365,Fresh Meadows,Queens
+11365,Flushing,Queens
+11366,Fresh Meadows,Queens
+11366,Flushing,Queens
+11367,Flushing,Queens
+11368,Corona,Queens
+11368,Flushing,Queens
+11369,East Elmhurst,Queens
+11369,Flushing,Queens
+11370,East Elmhurst,Queens
+11370,Flushing,Queens
+11371,East Elmhurst,Queens
+11371,La Guardia Airport,Queens
+11371,Flushing,Queens
+11372,Jackson Heights,Queens
+11372,Jackson Hts,Queens
+11372,Flushing,Queens
+11373,Elmhurst,Queens
+11373,Flushing,Queens
+11374,Rego Park,Queens
+11374,Flushing,Queens
+11375,Forest Hills,Queens
+11375,Flushing,Queens
+11377,Flushing,Queens
+11378,Maspeth,Queens
+11378,Flushing,Queens
+11379,Middle Village,Queens
+11379,Middle Vlg,Queens
+11379,Flushing,Queens
+11380,Elmhurst,Queens
+11380,Elmhurst A,Queens
+11380,Flushing,Queens
+11385,Glendale,Queens
+11385,Ridgewood,Queens
+11385,Flushing,Queens
+11386,Ridgewood,Queens
+11386,Flushing,Queens
+11411,Cambria Heights,Queens
+11411,Jamaica,Queens
+11412,St. Albans,Queens
+11412,Jamaica,Queens
+11413,Laurelton,Queens
+11413,Springfield Gardens,Queens
+11413,Jamaica,Queens
+11414,Howard Beach,Queens
+11414,Jamaica,Queens
+11415,Kew Gardens,Queens
+11415,Jamaica,Queens
+11416,Ozone Park,Queens
+11416,Jamaica,Queens
+11417,Ozone Park,Queens
+11417,Jamaica,Queens
+11418,Richmond Hill,Queens
+11418,Jamaica,Queens
+11419,South Richmond Hill,Queens
+11419,Jamaica,Queens
+11420,South Ozone Park,Queens
+11420,Jamaica,Queens
+11421,Jamaica,Queens
+11422,Rosedale,Queens
+11422,Jamaica,Queens
+11423,Hollis,Queens
+11423,Jamaica,Queens
+11424,Jamaica,Queens
+11426,Bellerose,Queens
+11426,Jamaica,Queens
+11427,Queens Village,Queens
+11427,Jamaica,Queens
+11428,Queens Village,Queens
+11428,Jamaica,Queens
+11429,Queens Village,Queens
+11429,Jamaica,Queens
+11430,John F Kennedy Airport,Queens
+11430,Jamaica,Queens
+11431,Jamaica,Queens
+11432,Jamaica Est,Queens
+11432,Jamaica,Queens
+11433,Jamaica,Queens
+11434,Jamaica,Queens
+11435,Briarwood,Queens
+11435,Jamaica,Queens
+11436,South Ozone Park,Queens
+11436,Jamaica,Queens
+11501,Mineola,Nassau County
+11507,Albertson,Nassau County
+11509,Atlantic Beach,Nassau County
+11510,Baldwin,Nassau County
+11510,North Baldwin,Nassau County
+11514,Carle Place,Nassau County
+11516,Cedarhurst,Nassau County
+11518,East Rockaway,Nassau County
+11520,Freeport,Nassau County
+11530,Garden City,Nassau County
+11530,Stewart Manor,Nassau County
+11531,Garden City,Nassau County
+11542,Glen Cove,Nassau County
+11545,Glen Head,Nassau County
+11547,Glenwood Landing,Nassau County
+11548,Greenvale,Nassau County
+11550,South Hempstead,Nassau County
+11550,Hempstead,Nassau County
+11551,Hempstead,Nassau County
+11552,West Hempstead,Nassau County
+11553,Uniondale,Nassau County
+11554,East Meadow,Nassau County
+11557,Hewlett,Nassau County
+11558,Island Park,Nassau County
+11559,Lawrence,Nassau County
+11560,Locust Valley,Nassau County
+11561,East Atlantic Beach,Nassau County
+11561,Lido Beach,Nassau County
+11561,Long Beach,Nassau County
+11563,Lynbrook,Nassau County
+11565,Malverne,Nassau County
+11566,North Merrick,Nassau County
+11566,Merrick,Nassau County
+11568,Old Westbury,Nassau County
+11569,Point Lookout,Nassau County
+11570,Rockville Centre,Nassau County
+11571,Rockville Centre,Nassau County
+11572,Oceanside,Nassau County
+11572,Rockville Centre,Nassau County
+11575,Roosevelt,Nassau County
+11576,Roslyn,Nassau County
+11577,Roslyn Heights,Nassau County
+11579,Sea Cliff,Nassau County
+11580,Valley Stream,Nassau County
+11581,Valley Stream,Nassau County
+11582,Valley Stream,Nassau County
+11596,East Williston,Nassau County
+11599,Garden City,Nassau County
+11690,Edgemere,Queens
+11690,Wave Crest,Queens
+11690,Far Rockaway,Queens
+11691,Far Rockaway,Queens
+11692,Arverne,Queens
+11692,Far Rockaway,Queens
+11693,Broad Channel,Queens
+11693,Rockaway Beach,Queens
+11693,Far Rockaway,Queens
+11694,Neponsit,Queens
+11694,Rockaway Park,Queens
+11694,Far Rockaway,Queens
+11695,Fort Tilden,Queens
+11695,Far Rockaway,Queens
+11697,Breezy Point,Queens
+11697,Rockaway Point,Queens
+11697,Far Rockaway,Queens
+11701,Amityville,Suffolk County
+11701,Amity Harbor,Suffolk County
+11702,Babylon,Suffolk County
+11702,Captree Island,Suffolk County
+11702,Gilgo Beach,Suffolk County
+11702,Oak Beach,Suffolk County
+11702,Oak Island,Suffolk County
+11702,West Gilgo Beach,Suffolk County
+11703,Babylon,Suffolk County
+11703,North Babylon,Suffolk County
+11704,Babylon,Suffolk County
+11704,West Babylon,Suffolk County
+11705,Bayport,Suffolk County
+11706,Fair Harbor,Suffolk County
+11706,Kismet,Suffolk County
+11706,Bay Shore,Suffolk County
+11706,Saltaire,Suffolk County
+11707,Babylon,Suffolk County
+11707,West Babylon,Suffolk County
+11708,Amityville,Suffolk County
+11709,Bayville,Nassau County
+11710,North Bellmore,Nassau County
+11710,Bellmore,Nassau County
+11713,Bellport,Suffolk County
+11714,Bethpage,Nassau County
+11715,Blue Point,Suffolk County
+11716,Bohemia,Suffolk County
+11717,Edgewood,Suffolk County
+11717,West Brentwood,Suffolk County
+11717,Brentwood,Suffolk County
+11718,Brightwaters,Suffolk County
+11719,Brookhaven,Suffolk County
+11720,South Setauket,Suffolk County
+11720,Centereach,Suffolk County
+11721,Centerport,Suffolk County
+11722,Central Islip,Suffolk County
+11724,Cold Spring Harbor,Suffolk County
+11725,Commack,Suffolk County
+11726,Copiague,Suffolk County
+11727,Coram,Suffolk County
+11729,Deer Park,Suffolk County
+11730,East Islip,Suffolk County
+11731,Elwood,Suffolk County
+11731,East Northport,Suffolk County
+11732,East Norwich,Nassau County
+11733,Setauket,Suffolk County
+11733,East Setauket,Suffolk County
+11735,South Farmingdale,Nassau County
+11735,Farmingdale,Nassau County
+11738,Farmingville,Suffolk County
+11739,Great River,Suffolk County
+11740,Greenlawn,Suffolk County
+11741,Holbrook,Suffolk County
+11742,Holtsville,Suffolk County
+11743,Halesite,Suffolk County
+11743,Huntington,Suffolk County
+11743,Lloyd Harbor,Suffolk County
+11746,Dix Hills,Suffolk County
+11746,Huntington Station,Suffolk County
+11747,Huntington Station,Suffolk County
+11747,Melville,Suffolk County
+11749,Central Islip,Suffolk County
+11749,Hauppauge,Suffolk County
+11749,Ronkonkoma,Suffolk County
+11749,Islandia,Suffolk County
+11751,Islip,Suffolk County
+11752,Islip Terrace,Suffolk County
+11753,Jericho,Nassau County
+11754,Kings Park,Suffolk County
+11755,Lake Grove,Suffolk County
+11756,Levittown,Nassau County
+11757,Lindenhurst,Suffolk County
+11758,North Massapequa,Nassau County
+11758,Massapequa,Nassau County
+11760,Islandia,Suffolk County
+11762,Massapequa Park,Nassau County
+11763,Medford,Suffolk County
+11764,Miller Place,Suffolk County
+11765,Mill Neck,Nassau County
+11766,Mount Sinai,Suffolk County
+11767,Nesconset,Suffolk County
+11768,Northport,Suffolk County
+11769,Oakdale,Suffolk County
+11770,Ocean Beach,Suffolk County
+11771,Oyster Bay,Nassau County
+11772,Davis Park,Suffolk County
+11772,East Patchogue,Suffolk County
+11772,Patchogue,Suffolk County
+11776,Port Jefferson Station,Suffolk County
+11777,Port Jefferson Station,Suffolk County
+11777,Prt Jefferson,Suffolk County
+11777,Prt Jefferson Station,Suffolk County
+11777,Port Jefferson,Suffolk County
+11778,Rocky Point,Suffolk County
+11779,Lake Ronkonkoma,Suffolk County
+11779,Ronkonkoma,Suffolk County
+11780,St. James,Suffolk County
+11782,Cherry Grove,Suffolk County
+11782,Fire Island Pines,Suffolk County
+11782,Sayville,Suffolk County
+11783,Seaford,Nassau County
+11784,Selden,Suffolk County
+11786,Shoreham,Suffolk County
+11787,Smithtown,Suffolk County
+11788,Hauppauge,Suffolk County
+11788,Smithtown,Suffolk County
+11789,Sound Beach,Suffolk County
+11790,Stony Brook,Suffolk County
+11791,Syosset,Nassau County
+11792,Wading River,Suffolk County
+11793,Wantagh,Nassau County
+11795,West Islip,Suffolk County
+11801,Hicksville,Nassau County
+11802,Hicksville,Nassau County
+11803,Hicksville,Nassau County
+11803,Plainview,Nassau County
+11804,Hicksville,Nassau County
+11804,Old Bethpage,Nassau County
+11805,Mid Island,Suffolk County
+11901,Flanders,Suffolk County
+11901,Riverhead,Suffolk County
+11930,Amagansett,Suffolk County
+11931,Aquebogue,Suffolk County
+11932,Bridgehampton,Suffolk County
+11933,Calverton,Suffolk County
+11934,Ctr Moriches,Suffolk County
+11934,Center Moriches,Suffolk County
+11935,Cutchogue,Suffolk County
+11937,East Hampton,Suffolk County
+11939,East Marion,Suffolk County
+11940,East Moriches,Suffolk County
+11941,Eastport,Suffolk County
+11942,East Quogue,Suffolk County
+11944,Greenport,Suffolk County
+11946,Hampton Bays,Suffolk County
+11947,Jamesport,Suffolk County
+11948,Laurel,Suffolk County
+11949,Manorville,Suffolk County
+11950,Mastic,Suffolk County
+11951,Mastic Beach,Suffolk County
+11952,Mattituck,Suffolk County
+11953,Middle Island,Suffolk County
+11954,Montauk,Suffolk County
+11955,Moriches,Suffolk County
+11956,New Suffolk,Suffolk County
+11957,Orient,Suffolk County
+11958,Peconic,Suffolk County
+11959,Quogue,Suffolk County
+11960,Remsenburg,Suffolk County
+11961,Ridge,Suffolk County
+11962,Sagaponack,Suffolk County
+11963,Sag Harbor,Suffolk County
+11964,Shelter Island,Suffolk County
+11965,Shelter Island Heights,Suffolk County
+11967,East Yaphank,Suffolk County
+11967,Shirley,Suffolk County
+11968,Southampton,Suffolk County
+11969,Southampton,Suffolk County
+11970,South Jamesport,Suffolk County
+11971,Southold,Suffolk County
+11972,Speonk,Suffolk County
+11973,Upton,Suffolk County
+11975,Wainscott,Suffolk County
+11976,Water Mill,Suffolk County

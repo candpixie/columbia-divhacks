@@ -1,0 +1,35 @@
+Inventory: 176 StreetEasy neighborhoods -> 163 ZIPs. 2026-08 listings 34217 of 34217 kept
+  ZIPs in MODZCTA but not in nyc_zips.json: ['10065', '10075'] (475 listings)
+
+1) Borough rent level: StreetEasy Rent Index vs Zillow county ZORI (monthly, overlapping months)
+borough    months SE 2026-08    ZORI    gap corr lvl corr YoY  SE YoY ZORI YoY  SE 5y ZORI 5y
+Manhattan     138       4511    4818  -6.4%    0.991    0.952    6.6%     5.8%  50.5%   41.5%
+Brooklyn      140       3718    3867  -3.8%    0.995    0.958    4.6%     4.7%  41.9%   38.6%
+Queens        140       2833    3278 -13.6%    0.988    0.965    3.6%     3.4%  38.1%   34.4%
+
+   COVID trough and date each index regained its Feb 2020 level:
+   Manhattan  se_index     trough 2021-03 (-17.4%), recovered 2021-12
+   Manhattan  zori_county  trough 2021-01 (-17.4%), recovered 2021-09
+   Brooklyn   se_index     trough 2021-03 (-9.8%), recovered 2021-11
+   Brooklyn   zori_county  trough 2021-01 (-9.4%), recovered 2021-08
+   Queens     se_index     trough 2021-04 (-10.2%), recovered 2022-01
+   Queens     zori_county  trough 2021-04 (-4.6%), recovered 2021-09
+
+2) ZIP level (163 ZIPs with StreetEasy listings)
+   Avg monthly StreetEasy listings, ZIPs with vs without Zillow ZORI:
+             count   25%    50%    75%
+   has_zori                           
+   False      29.0   2.0    4.0   11.0
+   True      134.0  41.0  126.0  330.0
+      0-10   listings/mo:  31 ZIPs,  32.3% have ZORI
+     10-50   listings/mo:  30 ZIPs,  86.7% have ZORI
+     50-200  listings/mo:  47 ZIPs,  93.6% have ZORI
+    200-     listings/mo:  55 ZIPs,  98.2% have ZORI
+   Spearman(listings, ZORI level) = 0.65
+   Spearman(inventory YoY, ZORI YoY), ZIPs with >=20 listings a year ago (n=106): -0.02
+
+3) Borough-wide monthly: StreetEasy inventory YoY vs ZORI YoY (2016+)
+   Manhattan  corr -0.77  (inventory leading 3 mo: -0.78), inventory 2026-08 15665 vs 17058 a year ago (-8.2%)
+   Brooklyn   corr -0.76  (inventory leading 3 mo: -0.72), inventory 2026-08 12843 vs 14244 a year ago (-9.8%)
+   Queens     corr -0.63  (inventory leading 3 mo: -0.58), inventory 2026-08 4596 vs 4493 a year ago (+2.3%)
+   Bronx      corr -0.05  (inventory leading 3 mo: +0.01), inventory 2026-08 1119 vs 1024 a year ago (+9.3%)

@@ -1,0 +1,60 @@
+Zillow month: 2026-08-31.  ZIPs: 269 total, 147 with ZORI, 255 with SAFMR
+
+               zips  zips_with_zori  median_zori  median_yoy_pct  median_5y_pct  median_vs_feb2020_pct  median_safmr_1br  median_safmr_2br
+borough                                                                                                                                   
+Bronx            25              18       2824.5             6.4           45.7                   49.5            2340.0            2570.0
+Brooklyn         46              37       3269.0             4.9           39.7                   40.2            2650.0            2900.0
+Manhattan       113              43       4756.0             5.7           38.7                   39.1            3270.0            3590.0
+Queens           71              38       2889.5             5.2           37.2                   36.0            2810.0            3080.0
+Staten Island    14              11       2536.0             3.5           39.2                    NaN            2510.0            2750.0 
+
+Most expensive (ZORI):
+          borough    zori  yoy_pct  vs_feb2020_pct  safmr_1br
+zip                                                         
+10007  Manhattan  8761.0      3.7            48.3     3270.0
+10162  Manhattan  7562.0      NaN             NaN     3620.0
+10282  Manhattan  7513.0      8.6             NaN     3400.0
+10013  Manhattan  6500.0      7.8            50.4     3990.0
+10014  Manhattan  6169.0      8.2            55.6     3990.0
+10069  Manhattan  6117.0      3.9            39.5     3990.0
+10011  Manhattan  5898.0      5.1            47.1     3990.0
+10001  Manhattan  5706.0      4.6            38.2     3990.0
+11249   Brooklyn  5649.0      2.1            50.1     3140.0
+10010  Manhattan  5398.0      5.4            40.3     3430.0 
+
+Least expensive (ZORI):
+              borough    zori  yoy_pct  vs_feb2020_pct  safmr_1br
+zip                                                             
+10308  Staten Island  1944.0      NaN             NaN     2540.0
+10307  Staten Island  1975.0      NaN             NaN     2260.0
+10309  Staten Island  2093.0      5.2             NaN     3000.0
+10453          Bronx  2137.0      NaN             NaN     2260.0
+10468          Bronx  2226.0      8.2             NaN     2440.0
+10312  Staten Island  2277.0      6.9             NaN     2580.0
+10467          Bronx  2368.0      1.1            49.5     2490.0
+10457          Bronx  2388.0      NaN             NaN     2310.0
+11435         Queens  2410.0      2.6            38.0     2680.0
+10456          Bronx  2459.0      NaN             NaN     2260.0 
+
+Fastest YoY growth:
+         borough    zori  yoy_pct  vs_feb2020_pct  safmr_1br
+zip                                                        
+11208  Brooklyn  3300.0     19.7             NaN     2440.0
+10458     Bronx  2864.0     18.2            66.3     2420.0
+11236  Brooklyn  2897.0     14.7             NaN     2560.0
+11356    Queens  2674.0     13.7             NaN     2960.0
+11415    Queens  2563.0     11.9             NaN     2930.0
+10461     Bronx  2780.0     11.2            44.2     2750.0
+11231  Brooklyn  4637.0     11.0            69.1     3990.0
+11433    Queens  3015.0     11.0             NaN     2380.0
+11379    Queens  2697.0     10.9             NaN     2960.0
+10465     Bronx  2882.0     10.0             NaN     2770.0 
+
+Falling YoY:
+         borough    zori  yoy_pct  vs_feb2020_pct  safmr_1br
+zip                                                        
+11365    Queens  2640.0     -4.1             NaN     2480.0
+11228  Brooklyn  3041.0     -0.1             NaN     2550.0 
+
+Citywide median ZORI 3126, YoY 5.3%, vs Feb 2020 39.1%
+Corr(ZORI, SAFMR 1BR) = 0.69
