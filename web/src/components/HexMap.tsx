@@ -19,6 +19,7 @@ type Props = {
   fillKey?: string; // change when `fill` changes
   workPins: { lat: number; lng: number; color: [number, number, number] }[];
   onPick: (nta: string) => void;
+  onPickHex?: (i: number) => void; // optional: which hex was tapped (NYC Passport stamping)
 };
 
 // green (short worst commute) -> amber (near the limit)
@@ -29,7 +30,7 @@ function color(r: HexResult, maxMin: number, selected: boolean): [number, number
   return [...c, selected ? 230 : 150];
 }
 
-export default function HexMap({ data, results, selectedNta, workPins, onPick, fill, fillKey }: Props) {
+export default function HexMap({ data, results, selectedNta, workPins, onPick, onPickHex, fill, fillKey }: Props) {
   const el = useRef<HTMLDivElement>(null);
   const overlay = useRef<MapboxOverlay | null>(null);
 
@@ -68,7 +69,11 @@ export default function HexMap({ data, results, selectedNta, workPins, onPick, f
           lineWidthMinPixels: 1,
           extruded: false,
           pickable: true,
-          onClick: (info) => info.object && onPick(data.hexes[info.object.i].nta),
+          onClick: (info) => {
+            if (!info.object) return;
+            onPickHex?.(info.object.i);
+            onPick(data.hexes[info.object.i].nta);
+          },
           updateTriggers: { getFillColor: [results, selectedNta, fillKey], getLineColor: [selectedNta] },
         }),
         new ScatterplotLayer({
@@ -83,7 +88,7 @@ export default function HexMap({ data, results, selectedNta, workPins, onPick, f
         }),
       ],
     });
-  }, [data, results, selectedNta, workPins, onPick, fill, fillKey]);
+  }, [data, results, selectedNta, workPins, onPick, onPickHex, fill, fillKey]);
 
   // maplibre's CSS sets the container to position:relative, so it sits inside a full-screen wrapper.
   return (
