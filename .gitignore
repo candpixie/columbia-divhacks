@@ -14,3 +14,7 @@ data/processed/buildings.csv
 # secrets
 .env
 .env.*
+
+# Photon starter scaffold (has its own .env)
+rent-radius/
+!.env.example

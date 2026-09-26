@@ -42,3 +42,23 @@ export async function parseWithGemini(text: string, placeIds: string[]): Promise
     return {};
   }
 }
+
+// Rephrase a grounded message for a group chat. Returns null without a key or on any failure,
+// so callers always have a deterministic fallback.
+export async function phraseWithGemini(prompt: string): Promise<string | null> {
+  const key = process.env.GEMINI_API_KEY;
+  if (!key) return null;
+  try {
+    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "x-goog-api-key": key },
+      signal: AbortSignal.timeout(6000),
+      body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }], generationConfig: { maxOutputTokens: 120 } }),
+    });
+    if (!res.ok) return null;
+    const body = (await res.json()) as { candidates?: { content?: { parts?: { text?: string }[] } }[] };
+    return body.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || null;
+  } catch {
+    return null;
+  }
+}
