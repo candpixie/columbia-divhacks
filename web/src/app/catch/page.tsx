@@ -1,8 +1,14 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import Link from "next/link";
+import CatchTradeoffs from "@/components/CatchTradeoffs";
+import TrackRecord from "@/components/TrackRecord";
 import { useEffect, useState } from "react";
 import type { CatchReport, Flag } from "@/lib/catch";
+
+// deck.gl touches window, so the 3D view only renders in the browser
+const Building3D = dynamic(() => import("@/components/Building3D"), { ssr: false });
 
 const EXAMPLES = [
   { label: "707 E 242nd St, Bronx", q: "707 East 242 Street Bronx" },
@@ -131,6 +137,9 @@ export default function CatchPage() {
             </p>
           </section>
         )}
+        {report && <TrackRecord key={`h-${report.bbl}`} bbl={report.bbl} />}
+        {report && <Building3D key={report.bbl} lat={report.lat} lon={report.lon} label={report.address} />}
+        {report && <CatchTradeoffs key={`t-${report.bbl}`} lat={report.lat} lon={report.lon} />}
       </div>
     </main>
   );

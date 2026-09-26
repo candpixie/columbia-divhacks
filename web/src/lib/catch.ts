@@ -46,7 +46,13 @@ export type CatchReport = {
 
 const n = (x: number) => x.toLocaleString();
 const plural = (x: number, w: string) => `${n(x)} ${w}${x === 1 ? "" : "s"}`;
-const worseThan = (pct: number | null) => (pct === null ? "" : ` Worse than ${Math.min(99, Math.round(pct))}% of NYC buildings with 6+ units.`);
+// pct = share of 6+ unit buildings this one is at least as bad as (higher = worse)
+const worseThan = (pct: number | null) => {
+  if (pct === null) return "";
+  return pct >= 60
+    ? ` Worse than ${Math.min(99, Math.round(pct))}% of NYC buildings with 6+ units.`
+    : ` Better than ${Math.max(1, Math.round(100 - pct))}% of NYC buildings with 6+ units.`;
+};
 
 export function buildReport(b: BuildingRow): CatchReport {
   const flags: Flag[] = [];
