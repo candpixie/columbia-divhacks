@@ -1,16 +1,16 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { loadData, type Data } from './data'
-import { scoreCell } from './score'
+import { safetyPref, scoreCell } from './score'
 import { travelTimesTo } from './traveltime'
 import { coordKey, located, type Person, type TimesState, type TravelTimes } from './types'
-import { MapView, type Pin } from './components/MapView'
+import { MapView, type FocusRow, type Pin } from './components/MapView'
 import { Panel } from './components/Panel'
 import { CellDetail } from './components/CellDetail'
 import type { SetPerson } from './fields/Fields'
 import { Landing } from './onboarding/Landing'
 import { Wizard } from './onboarding/Wizard'
 import { PlanReady } from './onboarding/PlanReady'
-import { PERSON_COLORS, hue, newPerson, type StepId } from './onboarding/constants'
+import { FACTOR_LABEL, PERSON_COLORS, hue, newPerson, type StepId } from './onboarding/constants'
 import { joinRoom, newRoomCode, roomFromUrl, useRoom, writePerson, writeTimes } from './room'
 
 type View = 'landing' | 'wizard' | 'plan' | 'map'
@@ -255,6 +255,32 @@ function MapScreen({ data, loadError, me, setMe, people, roomCode, roomTimes, st
     [counted, group.length, me.id],
   )
 
+  // "Your top 3 here" on the focused hexagon, in my own priority order
+  const focusRows = useMemo((): FocusRow[] | null => {
+    if (!data || selected == null) return null
+    const r = results[selected]
+    const hood = data.neighborhoods[data.cells[selected].nta]
+    const named = group.length > 1
+    return me.ranking.slice(0, 3).map((f, i): FocusRow => {
+      const row = (value: string, ok: boolean | null) => ({ rank: i + 1, label: FACTOR_LABEL[f], value, ok })
+      if (f === 'commute') {
+        const all = r.people.flatMap((pr) => pr.commutes.map((c) => ({ ...c, who: pr.person })))
+        if (!all.length) return row('No places yet', null)
+        if (all.some((c) => c.minutes == null)) return row('Loading…', null)
+        const worst = all.reduce((a, c) => (c.minutes! / c.maxMin > a.minutes! / a.maxMin ? c : a))
+        const mins = Number.isFinite(worst.minutes!) ? `${Math.round(worst.minutes!)} min` : '2 h+'
+        const who = named ? `${worst.who.id === me.id ? 'You' : worst.who.name || 'Someone'}, ` : ''
+        return row(`${who}${mins}${named ? '' : ` to ${worst.name || 'place'}`}`, all.every((c) => c.minutes! <= c.maxMin))
+      }
+      if (f === 'rent') {
+        const budgeted = r.people.some((pr) => pr.person.budget != null)
+        return row(named ? `$${Math.round(r.share).toLocaleString()} each` : `$${Math.round(r.rent).toLocaleString()}`, budgeted ? !r.issues.some((x) => x.factor === 'rent') : null)
+      }
+      const limited = r.people.some((pr) => safetyPref(pr.person) !== 'none')
+      return row(`${hood.violentPer1k.toFixed(1)} violent / 1k`, limited ? !r.issues.some((x) => x.factor === 'safety') : null)
+    })
+  }, [data, selected, results, group.length, me.id, me.ranking])
+
   const loading = [...needed.keys()].some((k) => times[k] === 'loading')
   const onSelect = useCallback((i: number | null) => setSelected(i), [])
   const viewName = viewId ? (viewId === me.id ? 'you' : (group.find((p) => p.id === viewId)?.name ?? null)) : null
@@ -277,7 +303,7 @@ function MapScreen({ data, loadError, me, setMe, people, roomCode, roomTimes, st
         counts={counts}
       />
       <main className="ms-map-wrap">
-        <MapView cells={data.cells} results={results} pins={pins} selected={selected} loading={loading} onSelect={onSelect} />
+        <MapView cells={data.cells} results={results} pins={pins} selected={selected} loading={loading} focusRows={focusRows} onSelect={onSelect} />
         {selected != null && (
           <CellDetail
             hood={data.neighborhoods[data.cells[selected].nta]}
