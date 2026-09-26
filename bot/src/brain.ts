@@ -65,10 +65,18 @@ const ALIASES: Record<string, string[]> = {
 export type Parsed = { name?: string; place?: string; maxMin?: number; budget?: number };
 
 export function parseRules(text: string): Parsed {
-  const t = ` ${text.toLowerCase().replace(/[’']/g, "'")} `;
+  // Where someone lives now isn't where they work: drop "I live near X" before matching places.
+  const t = ` ${text.toLowerCase().replace(/[’']/g, "'")} `
+    .replace(/\b(?:live|living|stay|staying)\s+(?:in|near|at|by|around|off)\s+[^,.;!?]+?(?=\s+(?:and|but)\b|[,.;!?]|\s*$)/g, " ");
   const out: Parsed = {};
-  const name = text.match(/\b(?:i'm|i am|this is|it's|name is)\s+([A-Z][a-zA-ZÀ-ɏ]+|\p{Script=Han}+)/iu);
-  if (name) out.name = name[1][0].toUpperCase() + name[1].slice(1);
+  // Tolerates typos like "ii am", "im", "its", and "Candy here".
+  const name = text.match(/(?:^|[\s,.!])(?:i+\s*'?m|i+\s+am|this is|it'?s|name is|call me)\s+([a-zÀ-ɏ]{2,}|\p{Script=Han}+)/iu)
+    ?? text.match(/^\s*([a-zÀ-ɏ]{2,}|\p{Script=Han}+)\s+here\b/iu);
+  const notNames = new Set(["at", "in", "from", "a", "an", "the", "working", "studying", "looking", "moving",
+    "here", "so", "also", "not", "just", "going", "currently", "living", "me"]);
+  if (name && !notNames.has(name[1].toLowerCase())) {
+    out.name = name[1][0].toUpperCase() + name[1].slice(1).toLowerCase();
+  }
   // longest alias first so "downtown brooklyn" beats "brooklyn"
   const hits = Object.entries(ALIASES)
     .flatMap(([id, as]) => as.map((a) => ({ id, a })))
