@@ -237,7 +237,34 @@ function decide(data: Data, spaceId: string, g: Group, winner: string): Action[]
   ];
 }
 
-const HELP = "Hi! I'm Rent Radius 🏠 Everyone tell me where you work or study and your max commute, e.g. \"I'm Candy, Columbia, 40 min\". Budgets can stay private: DM me your share and I'll only ever show the group total. Say \"map\" for results, \"reset\" to start over.";
+// ---- What's the Catch: an address or StreetEasy link pasted into the chat ----
+const STREET = "(?:st|street|ave|avenue|av|blvd|boulevard|pl|place|rd|road|dr|drive|ln|lane|way|pkwy|parkway|ter|terrace|ct|court|sq|square|broadway|bowery)";
+export function findAddress(text: string): string | null {
+  const se = text.match(/streeteasy\.com\/(?:building|rental|sale)\/([a-z0-9_-]+)/i);
+  if (se) {
+    // e.g. 106-morningside-drive-new_york -> "106 morningside drive new york"
+    return se[1].replace(/_/g, " ").replace(/-/g, " ").replace(/\b(new york|brooklyn|bronx|queens|staten island)\b.*$/i, "$1");
+  }
+  const m = text.match(new RegExp(`\\b\\d{1,5}(?:-\\d{1,3})?\\s+(?:[nsew]\\.?\\s+|east\\s+|west\\s+|north\\s+|south\\s+)?[a-z0-9 .'-]{2,40}?\\b${STREET}\\b(?:[ ,]+(?:manhattan|brooklyn|bronx|queens|staten island|new york|ny))?`, "i"));
+  return m ? m[0].trim() : null;
+}
+
+type CatchFlag = { level: "red" | "amber" | "green"; title: string };
+export async function catchFor(address: string): Promise<string> {
+  try {
+    const res = await fetch(`${MAP_URL}/api/catch?address=${encodeURIComponent(address)}`, { signal: AbortSignal.timeout(8000) });
+    const d = (await res.json()) as { error?: string; address?: string; units?: number; verdict?: string; flags?: CatchFlag[] };
+    if (d.error || !d.flags) return `🔍 Couldn't find a residential building record for "${address}".`;
+    const icon = { red: "🔴", amber: "🟡", green: "🟢" } as const;
+    const lines = d.flags.slice(0, 5).map((f) => `${icon[f.level]} ${f.title}`);
+    return [`🔍 The catch at ${d.address} (${d.units} apts): ${d.verdict}`, ...lines,
+      `Full record: ${MAP_URL}/catch?address=${encodeURIComponent(address)}`].join("\n");
+  } catch {
+    return `🔍 Couldn't check "${address}" right now. Try ${MAP_URL}/catch`;
+  }
+}
+
+const HELP = "Hi! I'm Rent Radius 🏠 Everyone tell me where you work or study and your max commute, e.g. \"I'm Candy, Columbia, 40 min\". Budgets can stay private: DM me your share and I'll only ever show the group total. Found a place? Paste its address or StreetEasy link and I'll tell you the catch. Say \"map\" for results, \"reset\" to start over.";
 
 export type Incoming = {
   spaceId: string;
@@ -267,6 +294,8 @@ export async function handle(data: Data, m: Incoming): Promise<Action[]> {
 
   // ---- private DM: budgets stay out of the group ----
   if (!m.isGroup) {
+    const addr = findAddress(msg);
+    if (addr) return [{ kind: "text", space: spaceId, text: await catchFor(addr) }];
     const p = parseRules(msg);
     if (p.budget) {
       privateBudgets.set(senderId, p.budget);
@@ -291,6 +320,9 @@ export async function handle(data: Data, m: Incoming): Promise<Action[]> {
   if (/too far|too long|too expensive|too pricey|can'?t afford|hate the commute|not .*(astoria|harlem|bronx|brooklyn|queens)/.test(lower) && g.ranked.length) {
     return referee(data, spaceId, g, senderId, lower);
   }
+
+  const addr = findAddress(msg);
+  if (addr) return [{ kind: "react", space: spaceId, emoji: "👀" }, { kind: "text", space: spaceId, text: await catchFor(addr) }];
 
   let p = parseRules(msg);
   if (!p.place && (p.maxMin || p.budget || /work|study|school|office|job/.test(lower))) {
