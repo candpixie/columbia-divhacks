@@ -2,3 +2,8 @@ raw/
 .venv/
 __pycache__/
 .DS_Store
+
+# local-only raw downloads
+data/extra related crime : safety data/22zpallagi.csv
+*.docx
+.DS_Store
