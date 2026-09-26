@@ -52,6 +52,13 @@ function pinsGeoJSON(pins: Pin[]): FeatureCollection {
   }
 }
 
+// Bounding box of the scored cells, [[west, south], [east, north]]
+function cellBounds(cells: Cell[]): [[number, number], [number, number]] {
+  const lngs = cells.map((c) => c.lng)
+  const lats = cells.map((c) => c.lat)
+  return [[Math.min(...lngs), Math.min(...lats)], [Math.max(...lngs), Math.max(...lats)]]
+}
+
 export function MapView({ cells, results, pins, selected, loading, onSelect }: Props) {
   const container = useRef<HTMLDivElement>(null)
   const mapRef = useRef<MapLibreMap | null>(null)
@@ -60,11 +67,14 @@ export function MapView({ cells, results, pins, selected, loading, onSelect }: P
   const [ready, setReady] = useState(false)
 
   useEffect(() => {
+    // open framed on NYC and keep the camera there, so NJ and the rest of the world stay out of view
+    const [[w, s], [e, n]] = cellBounds(cells)
     const map = new MapLibreMap({
       container: container.current!,
       style: STYLE,
-      center: [-73.94, 40.72],
-      zoom: 10.3,
+      bounds: [[w, s], [e, n]],
+      fitBoundsOptions: { padding: 24 },
+      maxBounds: [[w - 0.08, s - 0.05], [e + 0.08, n + 0.05]],
       attributionControl: { compact: true },
     })
     mapRef.current = map
