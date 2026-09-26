@@ -8,6 +8,9 @@ data/extra related crime : safety data/22zpallagi.csv
 *.docx
 .DS_Store
 
+# over GitHub's 100 MB limit; the committed copy is buildings.csv.gz
+data/processed/buildings.csv
+
 # secrets
 .env
 .env.*

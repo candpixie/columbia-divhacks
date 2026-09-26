@@ -1,0 +1,612 @@
+se_neighborhood,zip,share
+Astoria,11105,0.2743
+Astoria,11102,0.1987
+Astoria,11103,0.2655
+Astoria,11370,0.0418
+Astoria,11106,0.1289
+Astoria,11101,0.0076
+Astoria,11377,0.0832
+Auburndale,11358,0.3968
+Auburndale,11360,0.0392
+Auburndale,11361,0.1831
+Auburndale,11364,0.0689
+Auburndale,11365,0.3121
+Bath Beach,11214,0.7758
+Bath Beach,11228,0.2242
+Battery Park City,10004,0.0564
+Battery Park City,10005,0.2057
+Battery Park City,10006,0.0805
+Battery Park City,10007,0.0141
+Battery Park City,10013,0.0012
+Battery Park City,10038,0.3112
+Battery Park City,10280,0.2005
+Battery Park City,10282,0.1303
+Bay Ridge,11209,0.7206
+Bay Ridge,11220,0.2599
+Bay Ridge,11228,0.0196
+Baychester,10464,0.0019
+Baychester,10466,0.4976
+Baychester,10469,0.3876
+Baychester,10475,0.1128
+Bayside,11360,0.1033
+Bayside,11361,0.5639
+Bayside,11364,0.3327
+Bedford Park,10458,0.4077
+Bedford Park,10463,0.1597
+Bedford Park,10468,0.4327
+Bedford-Stuyvesant,11205,0.0855
+Bedford-Stuyvesant,11206,0.1709
+Bedford-Stuyvesant,11216,0.2251
+Bedford-Stuyvesant,11221,0.2714
+Bedford-Stuyvesant,11238,0.0378
+Bedford-Stuyvesant,11213,0.0285
+Bedford-Stuyvesant,11233,0.1808
+Bellerose,11004,0.0023
+Bellerose,11362,0.0007
+Bellerose,11364,0.0014
+Bellerose,11426,0.6369
+Bellerose,11427,0.3374
+Bellerose,11428,0.0079
+Bellerose,11429,0.0136
+Belmont,10457,0.0868
+Belmont,10458,0.8861
+Belmont,10460,0.0271
+Bensonhurst,11204,0.5246
+Bensonhurst,11214,0.3079
+Bensonhurst,11219,0.0821
+Bensonhurst,11228,0.0854
+Bergen Beach,11229,0.0646
+Bergen Beach,11234,0.9354
+Boerum Hill,11201,0.8101
+Boerum Hill,11205,0.0001
+Boerum Hill,11217,0.1898
+Borough Park,11219,0.6408
+Borough Park,11220,0.0675
+Borough Park,11232,0.0114
+Borough Park,11204,0.1482
+Borough Park,11218,0.1256
+Borough Park,11230,0.0066
+Briarwood,11415,0.0052
+Briarwood,11418,0.001
+Briarwood,11432,0.3766
+Briarwood,11435,0.6172
+Brighton Beach,11235,1.0
+Bronxwood,10466,0.2109
+Bronxwood,10467,0.6084
+Bronxwood,10469,0.1807
+Brooklyn Heights,11201,1.0
+Brookville,11422,0.0657
+Brookville,11413,0.7435
+Brookville,11434,0.1908
+Brownsville,11212,0.9925
+Brownsville,11236,0.0075
+Bushwick,11206,0.1227
+Bushwick,11221,0.4136
+Bushwick,11237,0.3366
+Bushwick,11207,0.1271
+Cambria Heights,11411,0.9541
+Cambria Heights,11429,0.0459
+Canarsie,11207,0.0194
+Canarsie,11236,0.9806
+Carroll Gardens,11201,0.1366
+Carroll Gardens,11215,0.1769
+Carroll Gardens,11217,0.1366
+Carroll Gardens,11231,0.55
+Castle Hill,10462,0.1484
+Castle Hill,10465,0.0529
+Castle Hill,10472,0.3828
+Castle Hill,10473,0.4158
+Central Harlem,10026,0.3109
+Central Harlem,10025,0.0001
+Central Harlem,10027,0.218
+Central Harlem,10030,0.2287
+Central Harlem,10037,0.091
+Central Harlem,10039,0.1514
+Central Park South,10001,0.0181
+Central Park South,10016,0.0893
+Central Park South,10017,0.0675
+Central Park South,10018,0.0854
+Central Park South,10019,0.3599
+Central Park South,10022,0.1349
+Central Park South,10036,0.2448
+Chelsea,10001,0.2632
+Chelsea,10011,0.6258
+Chelsea,10014,0.0139
+Chelsea,10018,0.0703
+Chelsea,10036,0.0268
+Chinatown,10002,0.7074
+Chinatown,10007,0.002
+Chinatown,10013,0.0622
+Chinatown,10038,0.2284
+City Island,10461,0.5185
+City Island,10464,0.0405
+City Island,10465,0.4409
+Civic Center,10007,0.2698
+Civic Center,10013,0.6559
+Civic Center,10038,0.0743
+Clearview,11358,0.015
+Clearview,11357,0.3472
+Clearview,11360,0.6378
+Clinton Hill,11205,0.4881
+Clinton Hill,11238,0.5119
+Co-op City,10461,0.0005
+Co-op City,10475,0.9995
+Cobble Hill,11201,0.1366
+Cobble Hill,11215,0.1769
+Cobble Hill,11217,0.1366
+Cobble Hill,11231,0.55
+College Point,11354,0.3262
+College Point,11356,0.5721
+College Point,11357,0.1016
+Columbia St Waterfront District,11201,0.1366
+Columbia St Waterfront District,11215,0.1769
+Columbia St Waterfront District,11217,0.1366
+Columbia St Waterfront District,11231,0.55
+Concourse,10451,0.4072
+Concourse,10456,0.413
+Concourse,10452,0.1798
+Coney Island,11214,0.0499
+Coney Island,11224,0.9174
+Coney Island,11235,0.0327
+Corona,11373,0.0097
+Corona,11368,0.9856
+Corona,11375,0.0047
+Country Club,10461,0.5185
+Country Club,10464,0.0405
+Country Club,10465,0.4409
+Crotona Park East,10459,0.6239
+Crotona Park East,10460,0.3761
+Crown Heights,11213,0.4907
+Crown Heights,11216,0.1621
+Crown Heights,11225,0.2033
+Crown Heights,11233,0.0698
+Crown Heights,11238,0.0742
+DUMBO,11201,0.8101
+DUMBO,11205,0.0001
+DUMBO,11217,0.1898
+Ditmas Park,11218,0.219
+Ditmas Park,11226,0.3571
+Ditmas Park,11230,0.4239
+Douglaston,11004,0.0031
+Douglaston,11362,0.6294
+Douglaston,11363,0.3628
+Douglaston,11426,0.0046
+Downtown Brooklyn,11201,0.8101
+Downtown Brooklyn,11205,0.0001
+Downtown Brooklyn,11217,0.1898
+Dyker Heights,11209,0.0005
+Dyker Heights,11219,0.376
+Dyker Heights,11220,0.1272
+Dyker Heights,11228,0.4963
+East Elmhurst,11368,0.0205
+East Elmhurst,11369,0.8809
+East Elmhurst,11370,0.0986
+East Flatbush,11203,0.3982
+East Flatbush,11210,0.0854
+East Flatbush,11226,0.3073
+East Flatbush,11234,0.0025
+East Flatbush,11212,0.152
+East Flatbush,11236,0.0546
+East Harlem,10029,0.745
+East Harlem,10128,0.0247
+East Harlem,10027,0.0004
+East Harlem,10037,0.0933
+East Harlem,10035,0.1365
+East Harlem,10039,0.0001
+East New York,11207,0.5039
+East New York,11208,0.4272
+East New York,11236,0.0689
+East Tremont,10460,0.9248
+East Tremont,10462,0.0752
+East Village,10002,0.0141
+East Village,10003,0.3153
+East Village,10009,0.6706
+Eastchester,10464,0.0019
+Eastchester,10466,0.4976
+Eastchester,10469,0.3876
+Eastchester,10475,0.1128
+Edenwald,10464,0.0019
+Edenwald,10466,0.4976
+Edenwald,10469,0.3876
+Edenwald,10475,0.1128
+Elmhurst,11372,0.012
+Elmhurst,11373,0.9683
+Elmhurst,11368,0.0033
+Elmhurst,11377,0.0163
+Financial District,10004,0.0564
+Financial District,10005,0.2057
+Financial District,10006,0.0805
+Financial District,10007,0.0141
+Financial District,10013,0.0012
+Financial District,10038,0.3112
+Financial District,10280,0.2005
+Financial District,10282,0.1303
+Flatbush,11210,0.1472
+Flatbush,11226,0.5402
+Flatbush,11230,0.21
+Flatbush,11218,0.1027
+Flatiron,10001,0.2051
+Flatiron,10003,0.1462
+Flatiron,10010,0.3125
+Flatiron,10011,0.1336
+Flatiron,10016,0.2026
+Flatlands,11203,0.0272
+Flatlands,11210,0.4996
+Flatlands,11234,0.4629
+Flatlands,11236,0.0103
+Floral Park,11004,0.7505
+Floral Park,11426,0.0461
+Floral Park,11429,0.2035
+Flushing,11358,0.1761
+Flushing,11354,0.3163
+Flushing,11355,0.4041
+Flushing,11356,0.0009
+Flushing,11357,0.0209
+Flushing,11365,0.0086
+Flushing,11368,0.0731
+Fordham,10453,0.1038
+Fordham,10457,0.0242
+Fordham,10458,0.2024
+Fordham,10468,0.6338
+Fordham,10463,0.0357
+Forest Hills,11415,0.0004
+Forest Hills,11374,0.1251
+Forest Hills,11368,0.0012
+Forest Hills,11375,0.8734
+Fort Greene,11201,0.1717
+Fort Greene,11205,0.4549
+Fort Greene,11217,0.2546
+Fort Greene,11238,0.1188
+Fresh Meadows,11365,0.7634
+Fresh Meadows,11366,0.2366
+Gerritsen Beach,11229,0.3627
+Gerritsen Beach,11234,0.0001
+Gerritsen Beach,11235,0.6372
+Glen Oaks,11004,0.7505
+Glen Oaks,11426,0.0461
+Glen Oaks,11429,0.2035
+Glendale,11374,0.0214
+Glendale,11385,0.9786
+Gowanus,11201,0.1366
+Gowanus,11215,0.1769
+Gowanus,11217,0.1366
+Gowanus,11231,0.55
+Gramercy Park,10003,0.5385
+Gramercy Park,10010,0.3893
+Gramercy Park,10016,0.0722
+Gravesend,11214,0.2733
+Gravesend,11223,0.6025
+Gravesend,11235,0.0536
+Gravesend,11230,0.0065
+Gravesend,11229,0.0642
+Greenpoint,11211,0.0105
+Greenpoint,11222,0.9895
+Greenwich Village,10003,0.4881
+Greenwich Village,10011,0.1964
+Greenwich Village,10012,0.3154
+Greenwich Village,10014,0.0001
+Greenwood,11215,0.0654
+Greenwood,11220,0.561
+Greenwood,11232,0.3736
+Hamilton Heights,10030,0.0334
+Hamilton Heights,10031,0.8667
+Hamilton Heights,10032,0.0999
+Highbridge,10452,0.9978
+Highbridge,10453,0.0022
+Hillcrest,11355,0.002
+Hillcrest,11365,0.3032
+Hillcrest,11366,0.1939
+Hillcrest,11367,0.084
+Hillcrest,11432,0.4168
+Hollis,11412,0.2232
+Hollis,11423,0.7467
+Hollis,11427,0.0096
+Hollis,11428,0.0084
+Hollis,11429,0.0121
+Howard Beach,11417,0.0003
+Howard Beach,11414,0.9997
+Hunts Point,10455,0.0592
+Hunts Point,10459,0.162
+Hunts Point,10474,0.7788
+Inwood,10033,0.0087
+Inwood,10034,0.9371
+Inwood,10040,0.0542
+Jackson Heights,11372,0.7938
+Jackson Heights,11369,0.0292
+Jackson Heights,11370,0.1431
+Jackson Heights,11377,0.034
+Jamaica,11412,0.0061
+Jamaica,11418,0.0008
+Jamaica,11419,0.0018
+Jamaica,11423,0.0835
+Jamaica,11432,0.3066
+Jamaica,11433,0.201
+Jamaica,11435,0.4
+Jamaica Estates,11366,0.0081
+Jamaica Estates,11423,0.3077
+Jamaica Estates,11427,0.0474
+Jamaica Estates,11432,0.6368
+Jamaica Hills,11415,0.0052
+Jamaica Hills,11418,0.001
+Jamaica Hills,11432,0.3766
+Jamaica Hills,11435,0.6172
+Kensington,11218,1.0
+Kew Gardens,11415,0.8517
+Kew Gardens,11418,0.1479
+Kew Gardens,11435,0.0004
+Kew Gardens Hills,11366,0.0023
+Kew Gardens Hills,11367,0.86
+Kew Gardens Hills,11432,0.0167
+Kew Gardens Hills,11435,0.1209
+Kingsbridge,10463,0.7829
+Kingsbridge,10468,0.21
+Kingsbridge,10471,0.0071
+Laconia,10466,0.2109
+Laconia,10467,0.6084
+Laconia,10469,0.1807
+Laurelton,11422,0.1806
+Laurelton,11413,0.8194
+Little Italy,10012,0.4719
+Little Italy,10013,0.3929
+Little Italy,10014,0.1351
+Little Neck,11004,0.0031
+Little Neck,11362,0.6294
+Little Neck,11363,0.3628
+Little Neck,11426,0.0046
+Long Island City,11101,0.6443
+Long Island City,11109,0.3557
+Longwood,10456,0.0212
+Longwood,10455,0.2639
+Longwood,10459,0.7149
+Longwood,10474,0.0001
+Lower East Side,10002,1.0
+Manhattan Beach,11229,0.3627
+Manhattan Beach,11234,0.0001
+Manhattan Beach,11235,0.6372
+Marble Hill,10463,0.9849
+Marble Hill,10471,0.0151
+Marine Park,11229,0.0646
+Marine Park,11234,0.9354
+Maspeth,11379,0.0632
+Maspeth,11377,0.0367
+Maspeth,11378,0.8834
+Maspeth,11385,0.0168
+Melrose,10451,0.2574
+Melrose,10456,0.2169
+Melrose,10455,0.5188
+Melrose,10459,0.0068
+Middle Village,11373,0.0346
+Middle Village,11374,0.0448
+Middle Village,11379,0.8919
+Middle Village,11385,0.0288
+Midtown,10001,0.0181
+Midtown,10016,0.0893
+Midtown,10017,0.0675
+Midtown,10018,0.0854
+Midtown,10019,0.3599
+Midtown,10022,0.1349
+Midtown,10036,0.2448
+Midtown East,10010,0.1089
+Midtown East,10016,0.4798
+Midtown East,10017,0.1375
+Midtown East,10021,0.0004
+Midtown East,10022,0.2735
+Midtown South,10001,0.2051
+Midtown South,10003,0.1462
+Midtown South,10010,0.3125
+Midtown South,10011,0.1336
+Midtown South,10016,0.2026
+Midtown West,10018,0.0385
+Midtown West,10019,0.5993
+Midtown West,10036,0.3622
+Midtown West,10069,0.0
+Midwood,11204,0.1881
+Midwood,11230,0.6238
+Midwood,11210,0.1847
+Midwood,11229,0.0035
+Mill Basin,11229,0.0646
+Mill Basin,11234,0.9354
+Morningside Heights,10026,0.0144
+Morningside Heights,10024,0.182
+Morningside Heights,10025,0.4003
+Morningside Heights,10027,0.4033
+Morris Heights,10452,0.0409
+Morris Heights,10453,0.9591
+Morris Park,10461,0.5951
+Morris Park,10462,0.4049
+Morrisania,10451,0.0682
+Morrisania,10456,0.8571
+Morrisania,10459,0.0747
+Mott Haven,10451,0.1482
+Mott Haven,10454,0.6286
+Mott Haven,10455,0.2233
+New Hyde Park,11004,0.7505
+New Hyde Park,11426,0.0461
+New Hyde Park,11429,0.2035
+Nolita,10012,0.4719
+Nolita,10013,0.3929
+Nolita,10014,0.1351
+North Corona,11372,0.0399
+North Corona,11368,0.9599
+North Corona,11369,0.0002
+Norwood,10458,0.0785
+Norwood,10467,0.9215
+Oakland Gardens,11362,0.0005
+Oakland Gardens,11364,0.7444
+Oakland Gardens,11427,0.2551
+Old Mill Basin,11229,0.0646
+Old Mill Basin,11234,0.9354
+Ozone Park,11416,0.4991
+Ozone Park,11417,0.5002
+Ozone Park,11414,0.0008
+Park Slope,11215,0.6016
+Park Slope,11217,0.3586
+Park Slope,11238,0.0398
+Parkchester,10462,1.0
+Pelham Bay,10461,0.5185
+Pelham Bay,10464,0.0405
+Pelham Bay,10465,0.4409
+Pelham Gardens,10469,1.0
+Pelham Parkway,10460,0.1548
+Pelham Parkway,10462,0.8452
+Pomonok,11355,0.002
+Pomonok,11365,0.3032
+Pomonok,11366,0.1939
+Pomonok,11367,0.084
+Pomonok,11432,0.4168
+Port Morris,10451,0.1482
+Port Morris,10454,0.6286
+Port Morris,10455,0.2233
+Prospect Heights,11217,0.2075
+Prospect Heights,11225,0.0006
+Prospect Heights,11238,0.7919
+Prospect Lefferts Gardens,11203,0.2597
+Prospect Lefferts Gardens,11225,0.6867
+Prospect Lefferts Gardens,11226,0.0536
+Prospect Park South,11210,0.277
+Prospect Park South,11226,0.7018
+Prospect Park South,11230,0.0212
+Queens Village,11411,0.011
+Queens Village,11426,0.0011
+Queens Village,11427,0.1259
+Queens Village,11428,0.3669
+Queens Village,11429,0.4951
+Red Hook,11201,0.1366
+Red Hook,11215,0.1769
+Red Hook,11217,0.1366
+Red Hook,11231,0.55
+Rego Park,11373,0.0786
+Rego Park,11374,0.9214
+Richmond Hill,11415,0.0133
+Richmond Hill,11416,0.0037
+Richmond Hill,11421,0.0294
+Richmond Hill,11418,0.9409
+Richmond Hill,11419,0.0127
+Ridgewood,11379,0.0435
+Ridgewood,11385,0.9565
+Riverdale,10463,0.663
+Riverdale,10471,0.337
+Rockaway All,11691,0.516
+Rockaway All,11692,0.1815
+Rockaway All,11693,0.1116
+Rockaway All,11694,0.1823
+Rockaway All,11697,0.0086
+Roosevelt Island,10021,0.4274
+Roosevelt Island,10022,0.0247
+Roosevelt Island,10044,0.1761
+Roosevelt Island,10065,0.238
+Roosevelt Island,10075,0.1339
+Rosedale,11422,1.0
+Schuylerville,10461,0.256
+Schuylerville,10465,0.744
+Seagate,11214,0.0499
+Seagate,11224,0.9174
+Seagate,11235,0.0327
+Sheepshead Bay,11229,0.3627
+Sheepshead Bay,11234,0.0001
+Sheepshead Bay,11235,0.6372
+Soho,10012,0.4719
+Soho,10013,0.3929
+Soho,10014,0.1351
+Soundview,10460,0.0776
+Soundview,10462,0.0087
+Soundview,10472,0.5518
+Soundview,10473,0.3619
+South Jamaica,11420,0.0011
+South Jamaica,11419,0.0025
+South Jamaica,11433,0.616
+South Jamaica,11434,0.0059
+South Jamaica,11435,0.3746
+South Ozone Park,11417,0.0735
+South Ozone Park,11420,0.6044
+South Ozone Park,11419,0.3163
+South Ozone Park,11434,0.0059
+South Richmond Hill,11416,0.0373
+South Richmond Hill,11419,0.9627
+Springfield Gardens,11413,0.6045
+Springfield Gardens,11434,0.3483
+Springfield Gardens,11422,0.0472
+St. Albans,11411,0.0115
+St. Albans,11412,0.6938
+St. Albans,11413,0.0862
+St. Albans,11423,0.0361
+St. Albans,11433,0.0864
+St. Albans,11434,0.0859
+Stuyvesant Town/PCV,10009,0.7786
+Stuyvesant Town/PCV,10010,0.2214
+Sunnyside,11104,0.5054
+Sunnyside,11101,0.1445
+Sunnyside,11377,0.2113
+Sunnyside,11378,0.1389
+Sunset Park,11215,0.035
+Sunset Park,11220,0.5983
+Sunset Park,11232,0.2362
+Sunset Park,11219,0.1305
+Throgs Neck,10461,0.256
+Throgs Neck,10465,0.744
+Tremont,10457,0.8237
+Tremont,10460,0.1763
+Tribeca,10007,0.2698
+Tribeca,10013,0.6559
+Tribeca,10038,0.0743
+University Heights,10452,0.0229
+University Heights,10453,0.5584
+University Heights,10458,0.0455
+University Heights,10463,0.0228
+University Heights,10468,0.3505
+Upper East Side,10021,0.2134
+Upper East Side,10022,0.0138
+Upper East Side,10044,0.0539
+Upper East Side,10065,0.1299
+Upper East Side,10075,0.1069
+Upper East Side,10028,0.2208
+Upper East Side,10128,0.2613
+Upper West Side,10019,0.0159
+Upper West Side,10023,0.3222
+Upper West Side,10069,0.0262
+Upper West Side,10024,0.2575
+Upper West Side,10025,0.3757
+Upper West Side,10026,0.0024
+Utopia,11365,0.7634
+Utopia,11366,0.2366
+Van Nest,10460,0.1548
+Van Nest,10462,0.8452
+Wakefield,10466,0.8361
+Wakefield,10470,0.1639
+Washington Heights,10031,0.0006
+Washington Heights,10032,0.3755
+Washington Heights,10033,0.2928
+Washington Heights,10039,0.0
+Washington Heights,10034,0.0544
+Washington Heights,10040,0.2767
+West Harlem,10027,0.5657
+West Harlem,10031,0.4343
+West Village,10011,0.1441
+West Village,10014,0.8559
+Westchester Village,10461,0.3767
+Westchester Village,10462,0.6233
+Whitestone,11357,0.9996
+Whitestone,11360,0.0004
+Williamsbridge,10466,0.2109
+Williamsbridge,10467,0.6084
+Williamsbridge,10469,0.1807
+Williamsburg,11206,0.2967
+Williamsburg,11211,0.5593
+Williamsburg,11222,0.0392
+Williamsburg,11237,0.1048
+Windsor Terrace,11218,0.6385
+Windsor Terrace,11215,0.3615
+Woodhaven,11416,0.0028
+Woodhaven,11421,0.997
+Woodhaven,11418,0.0002
+Woodlawn,10466,0.8361
+Woodlawn,10470,0.1639
+Woodside,11101,0.0113
+Woodside,11103,0.3336
+Woodside,11377,0.636
+Woodside,11104,0.0001
+Woodside,11372,0.0048
+Woodside,11373,0.0142
+Woodstock,10451,0.0682
+Woodstock,10456,0.8571
+Woodstock,10459,0.0747
