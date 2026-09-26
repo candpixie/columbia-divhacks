@@ -10,6 +10,7 @@ import {
 import { formatValue, goodness, loadLayers, percentile, type Layer } from "@/lib/layers";
 
 import TrueCost from "@/components/TrueCost";
+import RentTrend from "@/components/RentTrend";
 
 const HexMap = dynamic(() => import("@/components/HexMap"), { ssr: false });
 
@@ -231,6 +232,7 @@ export default function Home() {
             {sel.trend !== null && <span className="text-stone-500"> · {sel.trend > 0 ? "+" : ""}{sel.trend}% vs last year</span>}
           </p>
           {sel.estimated && <p className="text-xs text-amber-700">Borough estimate, no neighborhood data</p>}
+          {selected && !sel.estimated && <RentTrend nta={selected} beds={beds} />}
           <p className={`mt-1 text-sm ${sel.rent[beds] <= budget ? "text-emerald-700" : "text-rose-700"}`}>
             {sel.rent[beds] <= budget ? "Fits" : "Over"} your combined {money(budget)}
           </p>
