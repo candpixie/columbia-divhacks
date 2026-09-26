@@ -30,6 +30,7 @@ function readPerson(id: string, v: Partial<Person> & { places?: Place[] }): Pers
     places: (v.places ?? []).map((p) => ({ ...p, lat: p.lat ?? null, lng: p.lng ?? null, address: p.address ?? '', name: p.name ?? '' })),
     ranking: (v.ranking as Factor[] | undefined) ?? ['commute', 'rent', 'safety'],
     done: v.done ?? false,
+    visited: v.visited ?? '',
   }
 }
 

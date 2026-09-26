@@ -34,6 +34,7 @@ export type Person = {
   places: Place[]
   ranking: Factor[] // most important first; drives stretch-cost weights and the safety limit
   done: boolean // finished onboarding; only finished people count on the group map
+  visited?: string // NYC Passport: explored cells as a packed bitset (see passport.ts); synced with the room
 }
 
 // minutes per cell index; Infinity = not reachable within the search limit

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, type ReactNode } from 'react'
 import type { Person, TimesState } from '../types'
 import { BudgetField, PlacesField, PrioritiesField, type SetPerson } from '../fields/Fields'
 import { STEPS } from '../onboarding/constants'
@@ -16,14 +16,23 @@ type Props = {
   toast: (m: string) => void
   times: TimesState
   counts: { green: number; yellow: number; gray: number }
+  tab: 'find' | 'explore'
+  setTab: (t: 'find' | 'explore') => void
+  matches: Match[]
+  onPickMatch: (m: Match) => void
+  explore: ReactNode
 }
+
+export type Match = { nta: string; name: string; borough: string; cell: number; share: number; minutes: number[]; status: 'green' | 'yellow' }
 
 // Same fields, same order, same labels as the onboarding wizard (see fields/Fields.tsx)
 const title = (id: string) => STEPS.find((s) => s.id === id)!.k
 
-export function Panel({ me, setMe, people, view, setView, roomCode, startRoom, toast, times, counts }: Props) {
+export function Panel({ me, setMe, people, view, setView, roomCode, startRoom, toast, times, counts, tab, setTab, matches, onPickMatch, explore }: Props) {
   const [inviting, setInviting] = useState(false)
+  const [editing, setEditing] = useState(false)
   const group = people.length > 1
+  const fits = matches.filter((m) => m.status === 'green').length
 
   return (
     <aside className="ms-panel">
@@ -32,6 +41,11 @@ export function Panel({ me, setMe, people, view, setView, roomCode, startRoom, t
         <button className="edit-link ms-invite" onClick={() => setInviting((v) => !v)}>
           {inviting ? 'Close' : roomCode ? 'Invite' : 'Search with others'}
         </button>
+      </div>
+
+      <div className="ms-tabs" role="tablist">
+        <button role="tab" aria-selected={tab === 'find'} onClick={() => setTab('find')}>Find a place</button>
+        <button role="tab" aria-selected={tab === 'explore'} onClick={() => setTab('explore')}>Explore</button>
       </div>
 
       {inviting && (
@@ -74,6 +88,53 @@ export function Panel({ me, setMe, people, view, setView, roomCode, startRoom, t
         </section>
       )}
 
+      {tab === 'explore' ? explore : (
+      <>
+      <section className="ms-sec">
+        <h2 className="ms-h">{matches.length ? (fits ? `Your best matches` : `Closest matches`) : 'Your matches'}</h2>
+        {matches.length ? (
+          <ol className="ms-matches">
+            {matches.map((m, k) => (
+              <li key={m.nta}>
+                <button onClick={() => onPickMatch(m)}>
+                  <span className="ms-mrank">{k + 1}</span>
+                  <span className="ms-mname">
+                    {m.name}
+                    <small>{m.borough}{m.status === 'yellow' ? ' · close' : ''}</small>
+                  </span>
+                  <span className="ms-mnum">
+                    ${Math.round(m.share).toLocaleString()}
+                    <small>{m.minutes.length ? `${Math.max(...m.minutes)} min` : ''}</small>
+                  </span>
+                </button>
+              </li>
+            ))}
+          </ol>
+        ) : (
+          <p className="note">Nothing fits yet. Try a higher budget or a longer commute below.</p>
+        )}
+      </section>
+
+      <section className="ms-sec ms-legend">
+        <div>
+          <i className="ms-sw green" /> Fits <b>{counts.green}</b>
+        </div>
+        <div>
+          <i className="ms-sw yellow" /> Close <b>{counts.yellow}</b>
+        </div>
+        <div>
+          <i className="ms-sw gray" /> Out <b>{counts.gray}</b>
+        </div>
+      </section>
+
+      <section className="ms-sec">
+        <button className="ms-edit-toggle" aria-expanded={editing} onClick={() => setEditing((v) => !v)}>
+          <span className="ms-h">Your answers</span>
+          <span className="edit-link">{editing ? 'Done' : 'Edit'}</span>
+        </button>
+      </section>
+      {editing && (
+      <>
       <section className="ms-sec">
         <h2 className="ms-h">{group ? `Your ${title('budget').toLowerCase()}` : title('budget')}</h2>
         <BudgetField person={me} setPerson={setMe} compact />
@@ -89,17 +150,10 @@ export function Panel({ me, setMe, people, view, setView, roomCode, startRoom, t
         <PrioritiesField person={me} setPerson={setMe} compact />
       </section>
 
-      <section className="ms-sec ms-legend">
-        <div>
-          <i className="ms-sw green" /> Fits <b>{counts.green}</b>
-        </div>
-        <div>
-          <i className="ms-sw yellow" /> Close <b>{counts.yellow}</b>
-        </div>
-        <div>
-          <i className="ms-sw gray" /> Out <b>{counts.gray}</b>
-        </div>
-      </section>
+      </>
+      )}
+      </>
+      )}
     </aside>
   )
 }

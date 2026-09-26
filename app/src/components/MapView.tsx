@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Map as MapLibreMap, NavigationControl, setWorkerUrl, type GeoJSONSource } from 'maplibre-gl'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import maplibreWorkerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url'
-import { cellToBoundary } from 'h3-js'
+import { cellToBoundary, cellToLatLng } from 'h3-js'
 import type { FeatureCollection } from 'geojson'
 import type { Cell } from '../types'
 import type { CellResult } from '../score'
@@ -17,6 +17,17 @@ const HALO = DARK ? '#111316' : '#FFFFFF'
 
 export type Pin = { label: string; lat: number; lng: number; color: string }
 
+// Fits pop, everything else recedes: out-of-range cells are barely tinted so the answer is the first thing you see.
+const OPACITY = [
+  'match', ['feature-state', 'status'],
+  'green', 0.6, 'yellow', 0.42, 'gray', 0.07, 'custom', 0.62, 'none', 0.03,
+  0.05,
+] as unknown as number
+const COLOR = [
+  'case', ['==', ['feature-state', 'status'], 'custom'], ['coalesce', ['feature-state', 'color'], '#2F5BD3'],
+  ['match', ['feature-state', 'status'], 'green', '#16a34a', 'yellow', '#eab308', 'gray', '#6b7280', '#2F5BD3'],
+] as unknown as string
+
 type Props = {
   cells: Cell[]
   results: CellResult[]
@@ -24,6 +35,9 @@ type Props = {
   selected: number | null
   loading: boolean
   onSelect: (i: number | null) => void
+  colors?: (string | null)[] | null // Explore mode: one color per cell (null = not explored); overrides fit colors
+  focus?: { i: number; n: number } | null // fly to cell i whenever n changes
+  fitTo?: { cells: number[]; key: string } | null // frame these cells whenever key changes
 }
 
 function cellsGeoJSON(cells: Cell[]): FeatureCollection {
@@ -52,7 +66,7 @@ function pinsGeoJSON(pins: Pin[]): FeatureCollection {
   }
 }
 
-export function MapView({ cells, results, pins, selected, loading, onSelect }: Props) {
+export function MapView({ cells, results, pins, selected, loading, onSelect, colors, focus, fitTo }: Props) {
   const container = useRef<HTMLDivElement>(null)
   const mapRef = useRef<MapLibreMap | null>(null)
   const onSelectRef = useRef(onSelect)
@@ -82,20 +96,8 @@ export function MapView({ cells, results, pins, selected, loading, onSelect }: P
           type: 'fill',
           source: 'cells',
           paint: {
-            'fill-color': [
-              'match', ['feature-state', 'status'],
-              'green', '#16a34a',
-              'yellow', '#eab308',
-              'gray', '#6b7280',
-              '#2F5BD3',
-            ],
-            'fill-opacity': [
-              'match', ['feature-state', 'status'],
-              'green', 0.55,
-              'yellow', 0.6,
-              'gray', 0.22,
-              0.15,
-            ],
+            'fill-color': COLOR,
+            'fill-opacity': OPACITY,
             'fill-opacity-transition': { duration: 300 },
             'fill-color-transition': { duration: 300 },
           },
@@ -143,8 +145,30 @@ export function MapView({ cells, results, pins, selected, loading, onSelect }: P
   useEffect(() => {
     const map = mapRef.current
     if (!ready || !map) return
-    results.forEach((r, i) => map.setFeatureState({ source: 'cells', id: i }, { status: r.status }))
-  }, [ready, results])
+    if (colors) colors.forEach((c, i) => map.setFeatureState({ source: 'cells', id: i }, c ? { status: 'custom', color: c } : { status: 'none' }))
+    else results.forEach((r, i) => map.setFeatureState({ source: 'cells', id: i }, { status: r.status }))
+  }, [ready, results, colors])
+
+  useEffect(() => {
+    const map = mapRef.current
+    if (!ready || !map || !focus) return
+    const [lat, lng] = cellToLatLng(cells[focus.i].h3)
+    map.flyTo({ center: [lng, lat], zoom: Math.max(map.getZoom(), 13.2), duration: 900 })
+  }, [ready, focus, cells])
+
+  const fitKey = fitTo?.key
+  useEffect(() => {
+    const map = mapRef.current
+    if (!ready || !map || !fitTo || !fitTo.cells.length) return
+    let [w, s, e, n] = [180, 90, -180, -90]
+    for (const i of fitTo.cells) {
+      for (const [lng, lat] of cellToBoundary(cells[i].h3, true)) {
+        w = Math.min(w, lng); e = Math.max(e, lng); s = Math.min(s, lat); n = Math.max(n, lat)
+      }
+    }
+    map.fitBounds([[w, s], [e, n]], { padding: 60, maxZoom: 13, duration: 900 })
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- refit only when the set of matches changes
+  }, [ready, fitKey, cells])
 
   useEffect(() => {
     const map = mapRef.current
@@ -161,10 +185,8 @@ export function MapView({ cells, results, pins, selected, loading, onSelect }: P
   useEffect(() => {
     const map = mapRef.current
     if (!ready || !map) return
-    map.setPaintProperty('cells-fill', 'fill-opacity', loading ? 0.08 : [
-      'match', ['feature-state', 'status'], 'green', 0.55, 'yellow', 0.6, 'gray', 0.22, 0.15,
-    ])
-  }, [ready, loading])
+    map.setPaintProperty('cells-fill', 'fill-opacity', loading && !colors ? 0.08 : OPACITY)
+  }, [ready, loading, colors])
 
   return <div ref={container} className="ms-map" />
 }
