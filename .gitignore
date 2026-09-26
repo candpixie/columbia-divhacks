@@ -7,3 +7,7 @@ __pycache__/
 data/extra related crime : safety data/22zpallagi.csv
 *.docx
 .DS_Store
+
+# secrets
+.env
+.env.*
